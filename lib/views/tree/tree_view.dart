@@ -6,10 +6,9 @@ class TreeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      'assets/images/tree1.png',
+      'assets/images/plant1.png',
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.width,
-      fit: BoxFit.cover,
     );
   }
 }

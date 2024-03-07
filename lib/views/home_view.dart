@@ -2,6 +2,7 @@ import 'package:bibletree/dao/record_dao.dart';
 import 'package:bibletree/models/record_item.dart';
 import 'package:bibletree/models/singleton.dart';
 import 'package:bibletree/models/verse.dart';
+import 'package:bibletree/statics/app_statics.dart';
 import 'package:bibletree/views/record/record_view.dart';
 import 'package:bibletree/views/tree/growth_view.dart';
 import 'package:bibletree/views/tree/tree_view.dart';
@@ -47,11 +48,15 @@ class _HomeViewState extends State<HomeView> {
     Verse todayVerse = _singleton.list[_todayId];
 
     return Container(
+      // color: AppStatics.green,
+
       // BG image
       decoration: const BoxDecoration(
+        color: AppStatics.green,
         image: DecorationImage(
-          fit: BoxFit.fitHeight,
-          image: AssetImage('assets/images/base1.png'),
+          alignment: Alignment.bottomCenter,
+          fit: BoxFit.fitWidth,
+          image: AssetImage('assets/images/base.png'),
         ),
       ),
 
@@ -60,7 +65,6 @@ class _HomeViewState extends State<HomeView> {
         backgroundColor: Colors.transparent,
         body: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               // Verse view
               GestureDetector(
@@ -73,16 +77,18 @@ class _HomeViewState extends State<HomeView> {
                       .then((value) => getTodayRecord());
                 },
                 child: Container(
-                  margin: const EdgeInsets.fromLTRB(24, 72, 24, 24),
+                  margin: const EdgeInsets.fromLTRB(16, 100, 16, 0),
                   child: VerseView(
                       todayVerse.verse, todayVerse.book, todayVerse.chapter),
                 ),
               ),
 
+              const Spacer(),
+
               // Tree view
               Container(
                 alignment: Alignment.bottomCenter,
-                margin: const EdgeInsets.fromLTRB(24, 24, 24, 105),
+                margin: const EdgeInsets.only(bottom: 100),
                 child: GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(
