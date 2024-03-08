@@ -8,20 +8,26 @@ class VerseListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          verse.verse,
-          style: const TextStyle(fontSize: AppStatics.body),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          '${verse.book} ${verse.chapter}',
-          style: const TextStyle(
-              fontSize: AppStatics.footnote, color: AppStatics.secondary),
-        ),
-      ],
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+          color: AppStatics.green200, borderRadius: BorderRadius.circular(16)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            verse.verse,
+            style: const TextStyle(fontSize: AppStatics.body),
+            overflow: TextOverflow.ellipsis,
+          ),
+          const SizedBox(height: 4),
+          Text(
+            '${verse.book} ${verse.chapter}',
+            style: const TextStyle(
+                fontSize: AppStatics.footnote, color: AppStatics.secondary),
+          ),
+        ],
+      ),
     );
   }
 }

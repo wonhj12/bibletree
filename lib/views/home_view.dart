@@ -66,6 +66,7 @@ class _HomeViewState extends State<HomeView> {
         body: SafeArea(
           child: Column(
             children: <Widget>[
+              // TODO : Should only tough image, not transparent area
               // Verse view
               GestureDetector(
                 onTap: () {

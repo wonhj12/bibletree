@@ -26,9 +26,11 @@ class _VerseListViewState extends State<VerseListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppStatics.green,
       appBar: AppBar(
         title: const Text('묵상 목록',
             style: TextStyle(fontWeight: AppStatics.medium)),
+        backgroundColor: AppStatics.green,
         actions: [
           IconButton(
             onPressed: () {
@@ -52,17 +54,13 @@ class _VerseListViewState extends State<VerseListView> {
 
               return records.isEmpty
                   ? const EmptyView()
-                  : ListView.separated(
+                  : ListView.builder(
                       itemCount: records.length,
                       itemBuilder: (context, index) {
                         RecordItem record = records[index];
 
                         return listItem(record);
                       },
-                      separatorBuilder: (context, index) => Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 16),
-                        child: const Divider(),
-                      ),
                     );
             } else {
               return const Center(child: CircularProgressIndicator());
