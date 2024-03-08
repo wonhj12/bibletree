@@ -27,6 +27,14 @@ class _GrowthViewState extends State<GrowthView> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // Tree text
+            const Text(
+              '나무를 탭해서 물을 주세요!',
+              style: TextStyle(fontSize: AppStatics.body),
+            ),
+
+            const SizedBox(height: 16),
+
             // Tree
             GestureDetector(
               onTap: () {
@@ -38,24 +46,20 @@ class _GrowthViewState extends State<GrowthView> {
                     width: MediaQuery.of(context).size.width * 0.8,
                     height: MediaQuery.of(context).size.width * 0.8,
                     decoration: const BoxDecoration(
-                        shape: BoxShape.circle, color: Colors.white),
+                      color: AppStatics.green200,
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        alignment: Alignment(0, 3.8),
+                        fit: BoxFit.contain,
+                        image: AssetImage('assets/images/base.png'),
+                      ),
+                    ),
                     child: const TreeView(),
                   ),
                 ),
                 _isShaking ? _shakeDuration : 1,
                 _shakeWidth,
               ),
-            ),
-
-            const SizedBox(height: 12),
-
-            // Tree text
-            const Text(
-              '나무를 탭해서 물을 주세요!',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: AppStatics.title,
-                  fontWeight: AppStatics.medium),
             ),
           ],
         ),
