@@ -40,12 +40,24 @@ class _TextInputViewState extends State<TextInputView> {
             fontWeight: AppStatics.medium,
           ),
         ),
+        const SizedBox(height: 8),
         TextField(
           controller: controller,
-          decoration: const InputDecoration(
-              hintText: '말씀을 묵상하고 느낀 점을 적어주세요', border: InputBorder.none),
+          decoration: InputDecoration(
+              hintText: '말씀을 묵상하고 느낀 점을 적어주세요.',
+              hintStyle: const TextStyle(
+                  fontSize: AppStatics.body, color: AppStatics.secondary),
+              counterStyle: const TextStyle(
+                  fontSize: AppStatics.footnote, color: AppStatics.secondary),
+              filled: true,
+              fillColor: AppStatics.green200,
+              contentPadding: const EdgeInsets.all(8),
+              border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(10))),
+          style: const TextStyle(fontSize: AppStatics.body),
           maxLength: 255,
-          maxLines: null,
+          maxLines: 10,
           onChanged: (text) {
             widget.onTextChanged(text);
           },

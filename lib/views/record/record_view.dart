@@ -34,9 +34,11 @@ class _RecordViewState extends State<RecordView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppStatics.green,
       appBar: AppBar(
         title: const Text('오늘의 말씀'),
         centerTitle: true,
+        backgroundColor: AppStatics.green,
         // Close button
         leading: IconButton(
           icon: const Icon(Icons.close),
