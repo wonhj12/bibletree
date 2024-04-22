@@ -25,12 +25,31 @@ class _HomeViewState extends State<HomeView> {
   RecordItem? _todayRecord; // Today Record item
   int _todayId = 0; // today id
 
-  // TODO : first login
   /// Fetch today record from database
   getTodayRecord() async {
+    debugPrint('getting today record');
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final id = prefs.getInt('todayId') ?? 1;
+
+    // Get today's id
+    var id = prefs.getInt('todayId') ?? 0;
+
+    // Get last login DateTime
+    final lastLogin =
+        DateTime.fromMillisecondsSinceEpoch(prefs.getInt('lastLogin') ?? 0);
+    // Check if recorded
+    final recorded = prefs.getBool('recorded') ?? false;
+    // last login time is not today == yesterday or before
+    if (!DateUtils.isSameDay(lastLogin, DateTime.now()) && recorded) {
+      id = id + 1;
+      await prefs.setInt('todayId', id);
+      await prefs.setInt('lastLogin', DateTime.now().millisecondsSinceEpoch);
+      await prefs.setBool('recorded', false);
+    }
+
+    // Get record from database
     final record = await _dao.getRecordItem(id);
+
     setState(() {
       _todayId = id;
       _todayRecord = record;
@@ -66,7 +85,7 @@ class _HomeViewState extends State<HomeView> {
         body: SafeArea(
           child: Column(
             children: <Widget>[
-              // TODO : Should only tough image, not transparent area
+              // TODO : Should only tap image, not transparent area
               // Verse view
               GestureDetector(
                 onTap: () {
