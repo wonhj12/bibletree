@@ -112,6 +112,7 @@ class _HomeViewState extends State<HomeView> {
                   onTap: () {
                     // Increment tree growth
                     _treeManager.growth += 1;
+                    // TODO : Save tree growth value to sharedPrefs
 
                     // Show growth view
                     Navigator.of(context).push(

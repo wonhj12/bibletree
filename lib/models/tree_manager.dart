@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class TreeManager {
   static final TreeManager instance = TreeManager._internal();
   factory TreeManager() => instance;
