@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 class TreeView extends StatelessWidget {
-  const TreeView({super.key});
+  const TreeView({required this.treeName, super.key});
+
+  final String treeName;
 
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      'assets/images/plant1.png',
+      'assets/images/$treeName',
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.width,
     );

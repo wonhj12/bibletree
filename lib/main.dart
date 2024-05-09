@@ -17,6 +17,7 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   final Singleton _singleton = Singleton();
+  // final TreeManager _treeManager = TreeManager();
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:bibletree/models/tree_manager.dart';
 import 'package:bibletree/statics/app_statics.dart';
 import 'package:bibletree/views/tree/tree_view.dart';
 import 'package:bibletree/views/widgets/shaker.dart';
@@ -13,10 +14,14 @@ class GrowthView extends StatefulWidget {
 }
 
 class _GrowthViewState extends State<GrowthView> {
+  // Tree related variables
+  final TreeManager _treeManager = TreeManager(); // Tree Manager
+
   int _count = 3; // Number of taps before closing
   bool _isShaking = false; // Animation shake
+
   final int _shakeDuration = 200; // Shake duration in milliseconds
-  final double _shakeWidth = 15; //Shake width distance
+  final double _shakeWidth = 15; // Shake width distance
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +59,7 @@ class _GrowthViewState extends State<GrowthView> {
                         image: AssetImage('assets/images/base.png'),
                       ),
                     ),
-                    child: const TreeView(),
+                    child: TreeView(treeName: _treeManager.getCurTree()),
                   ),
                 ),
                 _isShaking ? _shakeDuration : 1,

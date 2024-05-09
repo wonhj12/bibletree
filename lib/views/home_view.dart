@@ -1,6 +1,7 @@
 import 'package:bibletree/dao/record_dao.dart';
 import 'package:bibletree/models/record_item.dart';
 import 'package:bibletree/models/singleton.dart';
+import 'package:bibletree/models/tree_manager.dart';
 import 'package:bibletree/models/verse.dart';
 import 'package:bibletree/statics/app_statics.dart';
 import 'package:bibletree/views/record/record_view.dart';
@@ -20,19 +21,20 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   // Data related variables
   final Singleton _singleton = Singleton(); // Verses
-  final RecordDao _dao = RecordDao(); // Record daoß
+  final RecordDao _dao = RecordDao(); // Record dao
+
+  // Tree related variables
+  final TreeManager _treeManager = TreeManager(); // Tree Manager
 
   RecordItem? _todayRecord; // Today Record item
   int _todayId = 0; // today id
 
   /// Fetch today record from database
   getTodayRecord() async {
-    debugPrint('getting today record');
-
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     // Get today's id
-    var id = prefs.getInt('todayId') ?? 0;
+    int id = prefs.getInt('todayId') ?? 0;
 
     // Get last login DateTime
     final lastLogin =
@@ -67,8 +69,6 @@ class _HomeViewState extends State<HomeView> {
     Verse todayVerse = _singleton.list[_todayId];
 
     return Container(
-      // color: AppStatics.green,
-
       // BG image
       decoration: const BoxDecoration(
         color: AppStatics.green,
@@ -85,7 +85,6 @@ class _HomeViewState extends State<HomeView> {
         body: SafeArea(
           child: Column(
             children: <Widget>[
-              // TODO : Should only tap image, not transparent area
               // Verse view
               GestureDetector(
                 onTap: () {
@@ -111,6 +110,10 @@ class _HomeViewState extends State<HomeView> {
                 margin: const EdgeInsets.only(bottom: 100),
                 child: GestureDetector(
                   onTap: () {
+                    // Increment tree growth
+                    _treeManager.growth += 1;
+
+                    // Show growth view
                     Navigator.of(context).push(
                       PageRouteBuilder(
                         opaque: false,
@@ -120,7 +123,7 @@ class _HomeViewState extends State<HomeView> {
                       ),
                     );
                   },
-                  child: const TreeView(),
+                  child: TreeView(treeName: _treeManager.getCurTree()),
                 ),
               ),
             ],

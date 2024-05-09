@@ -94,7 +94,7 @@ class _RecordViewState extends State<RecordView> {
                       widget.record!.createdAt);
                   _recordBloc.updateRecord(update);
                 }
-                if (!mounted) return;
+                if (!context.mounted) return;
                 Navigator.pop(context);
               },
               icon: const Icon(Icons.check_outlined))
