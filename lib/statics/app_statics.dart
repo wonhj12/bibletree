@@ -44,3 +44,15 @@ class AppStatics {
   static const FontWeight extraBold = FontWeight.w800;
   static const FontWeight black = FontWeight.w900;
 }
+
+class PrefVals {
+  // Today's verse ID
+  static const String todayId = 'todayId';
+  // Recorded status of previous verse
+  static const String recorded = 'recorded';
+  // Last login date
+  static const String lastLogin = 'lastLogin';
+
+  // Growth value of current tree
+  static const String growth = 'growth';
+}

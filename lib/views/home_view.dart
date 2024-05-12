@@ -19,6 +19,8 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  late SharedPreferences _prefs;
+
   // Data related variables
   final Singleton _singleton = Singleton(); // Verses
   final RecordDao _dao = RecordDao(); // Record dao
@@ -30,38 +32,43 @@ class _HomeViewState extends State<HomeView> {
   int _todayId = 0; // today id
 
   /// Fetch today record from database
-  getTodayRecord() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  void initialize() async {
+    _prefs = await SharedPreferences.getInstance();
 
     // Get today's id
-    int id = prefs.getInt('todayId') ?? 0;
+    int id = _prefs.getInt(PrefVals.todayId) ?? 0;
 
     // Get last login DateTime
-    final lastLogin =
-        DateTime.fromMillisecondsSinceEpoch(prefs.getInt('lastLogin') ?? 0);
+    final lastLogin = DateTime.fromMillisecondsSinceEpoch(
+        _prefs.getInt(PrefVals.lastLogin) ?? 0);
     // Check if recorded
-    final recorded = prefs.getBool('recorded') ?? false;
+    final recorded = _prefs.getBool(PrefVals.recorded) ?? false;
     // last login time is not today == yesterday or before
     if (!DateUtils.isSameDay(lastLogin, DateTime.now()) && recorded) {
       id = id + 1;
-      await prefs.setInt('todayId', id);
-      await prefs.setInt('lastLogin', DateTime.now().millisecondsSinceEpoch);
-      await prefs.setBool('recorded', false);
+      await _prefs.setInt(PrefVals.todayId, id);
+      await _prefs.setInt(
+          PrefVals.lastLogin, DateTime.now().millisecondsSinceEpoch);
+      await _prefs.setBool(PrefVals.recorded, false);
     }
 
     // Get record from database
     final record = await _dao.getRecordItem(id);
 
+    // Get tree growth
+    final growth = _prefs.getInt(PrefVals.growth) ?? 0;
+
     setState(() {
       _todayId = id;
       _todayRecord = record;
+      _treeManager.growth = growth;
     });
   }
 
   @override
   void initState() {
     super.initState();
-    getTodayRecord();
+    initialize();
   }
 
   @override
@@ -93,7 +100,7 @@ class _HomeViewState extends State<HomeView> {
                           builder: (context) => RecordView(
                               _todayRecord, _singleton.list[_todayId]),
                           fullscreenDialog: true))
-                      .then((value) => getTodayRecord());
+                      .then((value) => initialize());
                 },
                 child: Container(
                   margin: const EdgeInsets.fromLTRB(16, 100, 16, 0),
@@ -111,8 +118,7 @@ class _HomeViewState extends State<HomeView> {
                 child: GestureDetector(
                   onTap: () {
                     // Increment tree growth
-                    _treeManager.growth += 1;
-                    // TODO : Save tree growth value to sharedPrefs
+                    growTree();
 
                     // Show growth view
                     Navigator.of(context).push(
@@ -132,5 +138,10 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
     );
+  }
+
+  void growTree() async {
+    _treeManager.growth += 1;
+    _prefs.setInt(PrefVals.growth, _treeManager.growth);
   }
 }
