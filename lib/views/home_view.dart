@@ -5,10 +5,12 @@ import 'package:bibletree/models/tree_manager.dart';
 import 'package:bibletree/models/verse.dart';
 import 'package:bibletree/statics/app_statics.dart';
 import 'package:bibletree/views/record/record_view.dart';
+import 'package:bibletree/views/setting_view.dart';
 import 'package:bibletree/views/tree/growth_view.dart';
 import 'package:bibletree/views/tree/tree_view.dart';
 import 'package:bibletree/views/verse_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeView extends StatefulWidget {
@@ -88,6 +90,18 @@ class _HomeViewState extends State<HomeView> {
 
       // Home components
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          systemOverlayStyle: SystemUiOverlayStyle.dark,
+          leading: IconButton(
+            onPressed: () {
+              // Open settings
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const SettingView()));
+            },
+            icon: const Icon(Icons.format_list_bulleted),
+          ),
+        ),
         backgroundColor: Colors.transparent,
         body: SafeArea(
           child: Column(
@@ -103,7 +117,7 @@ class _HomeViewState extends State<HomeView> {
                       .then((value) => initialize());
                 },
                 child: Container(
-                  margin: const EdgeInsets.fromLTRB(16, 100, 16, 0),
+                  margin: const EdgeInsets.fromLTRB(16, 61, 16, 0),
                   child: VerseView(
                       todayVerse.verse, todayVerse.book, todayVerse.chapter),
                 ),
