@@ -140,8 +140,12 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
+  /// Increment tree growth and save to prefs
   void growTree() async {
-    _treeManager.growth += 1;
+    setState(() {
+      _treeManager.growth += 1;
+    });
+
     _prefs.setInt(PrefVals.growth, _treeManager.growth);
   }
 }

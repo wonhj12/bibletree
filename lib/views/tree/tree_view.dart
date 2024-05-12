@@ -9,6 +9,7 @@ class TreeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.asset(
       'assets/images/$treeName',
+      key: ValueKey<String>(treeName),
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.width,
     );

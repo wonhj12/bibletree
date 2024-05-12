@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class TreeManager {
   static final TreeManager instance = TreeManager._internal();
   factory TreeManager() => instance;
@@ -12,6 +14,7 @@ class TreeManager {
 
   /// Returns the name of current tree
   String getCurTree() {
+    debugPrint('$growth');
     final level = growth ~/ _growthLevel;
 
     switch (level) {
