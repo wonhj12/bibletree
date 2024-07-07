@@ -8,7 +8,6 @@ import 'package:bibletree/views/record/text_input_view.dart';
 import 'package:bibletree/views/verse_view.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class RecordView extends StatefulWidget {
   final RecordItem? record;
@@ -26,10 +25,10 @@ class _RecordViewState extends State<RecordView> {
   bool _like = false;
 
   /// Update today's recorded status to true
-  updateRecorded() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('recorded', true);
-  }
+  // updateRecorded() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   // prefs.setBool('recorded', true);
+  // }
 
   @override
   void initState() {
@@ -81,7 +80,7 @@ class _RecordViewState extends State<RecordView> {
                   _recordBloc.createRecord(RecordItem(
                       null, widget.verse.id, _like, _thought, DateTime.now()));
                   // Set recorded status to true
-                  await updateRecorded();
+                  // await updateRecorded();
                 } else {
                   // Update record
                   RecordItem update = RecordItem(

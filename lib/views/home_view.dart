@@ -3,7 +3,7 @@ import 'package:bibletree/models/record_item.dart';
 import 'package:bibletree/models/verse_singleton.dart';
 import 'package:bibletree/models/tree_manager.dart';
 import 'package:bibletree/models/verse.dart';
-import 'package:bibletree/statics/app_statics.dart';
+import 'package:bibletree/statics/pref_vals.dart';
 import 'package:bibletree/views/record/record_view.dart';
 import 'package:bibletree/views/settings/setting_view.dart';
 import 'package:bibletree/views/tree/growth_view.dart';
@@ -42,14 +42,16 @@ class _HomeViewState extends State<HomeView> {
     final lastLogin = DateTime.fromMillisecondsSinceEpoch(
         _prefs.getInt(PrefVals.lastLogin) ?? 0);
     // Check if recorded
-    final recorded = _prefs.getBool(PrefVals.recorded) ?? false;
-    // last login time is not today == yesterday or before
-    if (!DateUtils.isSameDay(lastLogin, DateTime.now()) && recorded) {
+    // final recorded = _prefs.getBool(PrefVals.recorded) ?? false;
+    // last login time is not today
+    if (!DateUtils.isSameDay(lastLogin, DateTime.now())) {
+      // Update today id
       id = id + 1;
       await _prefs.setInt(PrefVals.todayId, id);
+      // Update login time
       await _prefs.setInt(
           PrefVals.lastLogin, DateTime.now().millisecondsSinceEpoch);
-      await _prefs.setBool(PrefVals.recorded, false);
+      // await _prefs.setBool(PrefVals.recorded, false);
     }
 
     // Get record from database

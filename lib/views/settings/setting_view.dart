@@ -85,7 +85,9 @@ class _SettingViewState extends State<SettingView> {
             // Notifications
             SettingInkwell(
               name: '알림',
-              value: '켬',
+              value: Provider.of<SettingProvider>(context).notification
+                  ? '켬'
+                  : '끔',
               onTap: () {
                 showModalBottomSheet(
                   context: context,
@@ -95,12 +97,18 @@ class _SettingViewState extends State<SettingView> {
                         ModalInkwell(
                           title: '알림 켜기',
                           isTop: true,
-                          onTap: () {},
+                          onTap: () {
+                            Provider.of<SettingProvider>(context, listen: false)
+                                .changeNotification(true);
+                          },
                         ),
                         ModalInkwell(
                           title: '알림 끄기',
                           isBottom: true,
-                          onTap: () {},
+                          onTap: () {
+                            Provider.of<SettingProvider>(context, listen: false)
+                                .changeNotification(false);
+                          },
                         ),
                       ],
                     );
@@ -113,7 +121,7 @@ class _SettingViewState extends State<SettingView> {
             // Haptics
             SettingInkwell(
               name: '진동',
-              value: '켬',
+              value: Provider.of<SettingProvider>(context).haptics ? '켬' : '끔',
               onTap: () {
                 showModalBottomSheet(
                   context: context,
@@ -123,12 +131,18 @@ class _SettingViewState extends State<SettingView> {
                         ModalInkwell(
                           title: '진동 켜기',
                           isTop: true,
-                          onTap: () {},
+                          onTap: () {
+                            Provider.of<SettingProvider>(context, listen: false)
+                                .changeHaptics(true);
+                          },
                         ),
                         ModalInkwell(
                           title: '진동 끄기',
                           isBottom: true,
-                          onTap: () {},
+                          onTap: () {
+                            Provider.of<SettingProvider>(context, listen: false)
+                                .changeHaptics(false);
+                          },
                         ),
                       ],
                     );
