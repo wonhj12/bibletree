@@ -41,11 +41,9 @@ class _RecordViewState extends State<RecordView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppStatics.green,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       appBar: AppBar(
         title: const Text('오늘의 말씀'),
-        centerTitle: true,
-        backgroundColor: AppStatics.green,
         // Close button
         leading: IconButton(
           icon: const Icon(Icons.close),
@@ -73,7 +71,7 @@ class _RecordViewState extends State<RecordView> {
                 }
               },
               icon: Icon(_like ? Icons.favorite : Icons.favorite_outline,
-                  color: _like ? Colors.red : Colors.black)),
+                  color: _like ? Colors.red : null)),
 
           // Save button
           IconButton(
@@ -138,9 +136,9 @@ class _RecordViewState extends State<RecordView> {
                   alignment: Alignment.bottomRight,
                   child: Text(
                     '${DateFormat('yyyy.MM.dd').format(widget.record?.createdAt ?? DateTime.now())} 말씀묵상',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: AppStatics.footnote,
-                      color: AppStatics.secondary,
+                      color: Theme.of(context).colorScheme.onSecondary,
                     ),
                   ),
                 )

@@ -11,7 +11,9 @@ class VerseListTile extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-          color: AppStatics.green200, borderRadius: BorderRadius.circular(16)),
+        color: Theme.of(context).colorScheme.secondary,
+        borderRadius: BorderRadius.circular(16),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -23,8 +25,10 @@ class VerseListTile extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             '${verse.book} ${verse.chapter}',
-            style: const TextStyle(
-                fontSize: AppStatics.footnote, color: AppStatics.secondary),
+            style: TextStyle(
+              fontSize: AppStatics.footnote,
+              color: Theme.of(context).colorScheme.onSecondary,
+            ),
           ),
         ],
       ),

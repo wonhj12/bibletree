@@ -22,9 +22,9 @@ class VerseView extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           '$book $chapter',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: AppStatics.body,
-            color: AppStatics.secondary,
+            color: Theme.of(context).colorScheme.onSecondary,
           ),
         ),
       ],

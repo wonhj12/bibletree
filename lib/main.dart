@@ -1,11 +1,21 @@
-import 'package:bibletree/models/singleton.dart';
-import 'package:bibletree/statics/app_statics.dart';
+import 'package:bibletree/models/setting_provider.dart';
+import 'package:bibletree/models/verse_singleton.dart';
+import 'package:bibletree/statics/custom_theme_data.dart';
 import 'package:bibletree/views/home_view.dart';
 import 'package:bibletree/views/verse_list_view.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MainApp());
+  // Initialize singletons
+  VerseSingleton.instance;
+
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => SettingProvider(),
+      child: const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatefulWidget {
@@ -16,27 +26,18 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  final Singleton _singleton = Singleton();
-  // final TreeManager _treeManager = TreeManager();
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        fontFamily: 'Pretendard',
-        appBarTheme: const AppBarTheme(
-          titleTextStyle: TextStyle(
-              fontSize: AppStatics.body,
-              fontWeight: AppStatics.medium,
-              color: Colors.black),
-        ),
-      ),
-      themeMode: ThemeMode.system,
+      theme: CustomThemeData.light,
+      darkTheme: CustomThemeData.dark,
+      themeMode: Provider.of<SettingProvider>(context).themeMode,
       home: FutureBuilder(
-        future: _singleton.loadVerses(),
+        // Initialize verse before loading screen
+        future: VerseSingleton.instance.loadVerses(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            _singleton.list = snapshot.data!;
+            VerseSingleton.instance.list = snapshot.data!;
             return PageView(
               physics: const ClampingScrollPhysics(),
               children: const [HomeView(), VerseListView()],

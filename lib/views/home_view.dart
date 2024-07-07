@@ -1,16 +1,15 @@
 import 'package:bibletree/dao/record_dao.dart';
 import 'package:bibletree/models/record_item.dart';
-import 'package:bibletree/models/singleton.dart';
+import 'package:bibletree/models/verse_singleton.dart';
 import 'package:bibletree/models/tree_manager.dart';
 import 'package:bibletree/models/verse.dart';
 import 'package:bibletree/statics/app_statics.dart';
 import 'package:bibletree/views/record/record_view.dart';
-import 'package:bibletree/views/setting_view.dart';
+import 'package:bibletree/views/settings/setting_view.dart';
 import 'package:bibletree/views/tree/growth_view.dart';
 import 'package:bibletree/views/tree/tree_view.dart';
 import 'package:bibletree/views/verse_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeView extends StatefulWidget {
@@ -23,8 +22,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   late SharedPreferences _prefs;
 
-  // Data related variables
-  final Singleton _singleton = Singleton(); // Verses
+  // // Data related variables
   final RecordDao _dao = RecordDao(); // Record dao
 
   // Tree related variables
@@ -75,13 +73,13 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    Verse todayVerse = _singleton.list[_todayId];
+    Verse todayVerse = VerseSingleton.instance.list[_todayId];
 
     return Container(
       // BG image
-      decoration: const BoxDecoration(
-        color: AppStatics.green,
-        image: DecorationImage(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primary,
+        image: const DecorationImage(
           alignment: Alignment.bottomCenter,
           fit: BoxFit.fitWidth,
           image: AssetImage('assets/images/base.png'),
@@ -91,8 +89,6 @@ class _HomeViewState extends State<HomeView> {
       // Home components
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          systemOverlayStyle: SystemUiOverlayStyle.dark,
           leading: IconButton(
             onPressed: () {
               // Open settings
@@ -111,8 +107,8 @@ class _HomeViewState extends State<HomeView> {
                 onTap: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(
-                          builder: (context) => RecordView(
-                              _todayRecord, _singleton.list[_todayId]),
+                          builder: (context) => RecordView(_todayRecord,
+                              VerseSingleton.instance.list[_todayId]),
                           fullscreenDialog: true))
                       .then((value) => initialize());
                 },

@@ -4,10 +4,10 @@ import 'package:bibletree/models/verse.dart';
 import 'package:flutter/services.dart';
 
 /// Verse list singleton
-class Singleton {
-  static final Singleton instance = Singleton._internal();
-  factory Singleton() => instance;
-  Singleton._internal();
+class VerseSingleton {
+  static final VerseSingleton instance = VerseSingleton._internal();
+  factory VerseSingleton() => instance;
+  VerseSingleton._internal();
 
   static final List<Verse> _list = [];
   List<Verse> get list => _list;

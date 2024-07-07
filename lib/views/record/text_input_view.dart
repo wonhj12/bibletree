@@ -44,17 +44,21 @@ class _TextInputViewState extends State<TextInputView> {
         TextField(
           controller: controller,
           decoration: InputDecoration(
-              hintText: '말씀을 묵상하고 느낀 점을 적어주세요.',
-              hintStyle: const TextStyle(
-                  fontSize: AppStatics.body, color: AppStatics.secondary),
-              counterStyle: const TextStyle(
-                  fontSize: AppStatics.footnote, color: AppStatics.secondary),
-              filled: true,
-              fillColor: AppStatics.green200,
-              contentPadding: const EdgeInsets.all(8),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(10))),
+            hintText: '말씀을 묵상하고 느낀 점을 적어주세요.',
+            hintStyle: TextStyle(
+                fontSize: AppStatics.body,
+                color: Theme.of(context).colorScheme.onSecondary),
+            counterStyle: TextStyle(
+                fontSize: AppStatics.footnote,
+                color: Theme.of(context).colorScheme.onSecondary),
+            filled: true,
+            fillColor: Theme.of(context).colorScheme.secondary,
+            contentPadding: const EdgeInsets.all(8),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
           style: const TextStyle(fontSize: AppStatics.body),
           maxLength: 255,
           maxLines: 10,
