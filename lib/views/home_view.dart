@@ -22,7 +22,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   late SharedPreferences _prefs;
 
-  // // Data related variables
+  // Data related variables
   final RecordDao _dao = RecordDao(); // Record dao
 
   // Tree related variables
@@ -115,7 +115,7 @@ class _HomeViewState extends State<HomeView> {
                       .then((value) => initialize());
                 },
                 child: Container(
-                  margin: const EdgeInsets.fromLTRB(16, 61, 16, 0),
+                  margin: const EdgeInsets.fromLTRB(16, 54, 16, 0),
                   child: VerseView(
                       todayVerse.verse, todayVerse.book, todayVerse.chapter),
                 ),

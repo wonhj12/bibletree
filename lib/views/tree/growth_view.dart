@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:bibletree/models/tree_manager.dart';
 import 'package:bibletree/statics/app_statics.dart';
 import 'package:bibletree/views/tree/tree_view.dart';
+import 'package:bibletree/views/widgets/name_alert.dart';
 import 'package:bibletree/views/widgets/shaker.dart';
 import 'package:flutter/material.dart';
 
@@ -33,9 +34,9 @@ class _GrowthViewState extends State<GrowthView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Tree text
-            const Text(
-              '나무를 탭해서 물을 주세요!',
-              style: TextStyle(fontSize: AppStatics.body),
+            Text(
+              _treeManager.treeDescription(userName: '나무'),
+              style: const TextStyle(fontSize: AppStatics.body),
             ),
 
             const SizedBox(height: 16),
@@ -87,7 +88,21 @@ class _GrowthViewState extends State<GrowthView> {
 
       if (_count == 0) {
         Future.delayed(Duration(milliseconds: _shakeDuration))
-            .then((value) => Navigator.pop(context));
+            .then((value) async {
+          if (_treeManager.needName) {
+            String? name = await showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context) => const NameAlert(),
+            );
+
+            // TODO : 이름 저장
+            if (name != null) _treeManager.needName = false;
+          }
+
+          if (!mounted) return;
+          Navigator.pop(context);
+        });
       }
     }
   }
