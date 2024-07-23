@@ -1,3 +1,4 @@
+import 'package:bibletree/statics/app_statics.dart';
 import 'package:flutter/material.dart';
 
 class NameAlert extends StatefulWidget {
@@ -15,11 +16,13 @@ class _NameAlertState extends State<NameAlert> {
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-      // title: const Text('이름을 지어주세요!'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text('이름을 지어주세요!'),
+          const Text(
+            '이름을 지어주세요!',
+            style: TextStyle(fontSize: AppStatics.body),
+          ),
           TextField(
             controller: controller,
             decoration: InputDecoration(
@@ -27,6 +30,7 @@ class _NameAlertState extends State<NameAlert> {
               errorText: _errorText,
             ),
           ),
+          const SizedBox(height: 16),
           TextButton(
             onPressed: () => _validate(),
             child: const Text('확인'),

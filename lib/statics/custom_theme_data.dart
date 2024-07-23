@@ -23,6 +23,9 @@ class CustomThemeData {
     ),
     highlightColor: Colors.transparent, // Modal highlight color
     splashColor: AppStatics.green400, // Modal splash color
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(foregroundColor: AppStatics.primary),
+    ),
   );
 
   static final ThemeData dark = ThemeData(
@@ -46,5 +49,8 @@ class CustomThemeData {
     ),
     highlightColor: Colors.transparent,
     splashColor: AppStatics.brown400,
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(foregroundColor: AppStatics.white),
+    ),
   );
 }

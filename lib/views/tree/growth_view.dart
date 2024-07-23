@@ -97,7 +97,7 @@ class _GrowthViewState extends State<GrowthView> {
             );
 
             // TODO : 이름 저장
-            if (name != null) _treeManager.needName = false;
+            if (name != null && name.isNotEmpty) _treeManager.needName = false;
           }
 
           if (!mounted) return;
