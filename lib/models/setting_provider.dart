@@ -9,11 +9,19 @@ class SettingProvider with ChangeNotifier {
     _initialize();
   }
 
+  // Shared preferences
   late SharedPreferences _prefs;
+
+  // Tree related variables
+  // final TreeManager _treeManager = TreeManager(); // Tree Manager
 
   // Initialize saved settings
   Future<void> _initialize() async {
     _prefs = await SharedPreferences.getInstance();
+
+    // Set tree name
+    treeName = _prefs.getString(PrefVals.treeName) ?? '나무';
+
     // Set theme mode
     switch (_prefs.getString(PrefVals.theme)) {
       case 'system':
@@ -38,6 +46,9 @@ class SettingProvider with ChangeNotifier {
 
     notifyListeners();
   }
+
+  /* Tree */
+  String treeName = '나무';
 
   /* Theme */
   ThemeMode themeMode = ThemeMode.system;

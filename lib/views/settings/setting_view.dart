@@ -33,6 +33,18 @@ class _SettingViewState extends State<SettingView> {
           children: [
             const SizedBox(height: 16),
 
+            // Tree settings
+            const SettingHeader(title: '나무 설정'),
+
+            // Name
+            SettingInkwell(
+              name: '이름',
+              value: Provider.of<SettingProvider>(context).treeName,
+              onTap: () {},
+            ),
+
+            const SizedBox(height: 32),
+
             // System settings
             const SettingHeader(title: '앱 설정'),
 
@@ -161,7 +173,7 @@ class _SettingViewState extends State<SettingView> {
             SettingInkwell(name: '앱 버젼', value: '1.0.0', onTap: () {}),
 
             // Personal Information
-            SettingInkwell(name: '개인정보 처러방침', value: '', onTap: () {}),
+            SettingInkwell(name: '개인정보 처리방침', value: '', onTap: () {}),
 
             const SizedBox(height: 32),
 
