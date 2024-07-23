@@ -9,6 +9,7 @@ import 'package:bibletree/views/settings/setting_view.dart';
 import 'package:bibletree/views/tree/growth_view.dart';
 import 'package:bibletree/views/tree/tree_view.dart';
 import 'package:bibletree/views/verse_view.dart';
+import 'package:bibletree/views/widgets/name_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -60,10 +61,14 @@ class _HomeViewState extends State<HomeView> {
     // Get tree growth
     final growth = _prefs.getInt(PrefVals.growth) ?? 0;
 
+    // Get tree name
+    final name = _prefs.getString(PrefVals.treeName) ?? '나무';
+
     setState(() {
       _todayId = id;
       _todayRecord = record;
       _treeManager.growth = growth;
+      _treeManager.name = name;
     });
   }
 
@@ -133,13 +138,32 @@ class _HomeViewState extends State<HomeView> {
                     growTree();
 
                     // Show growth view
-                    Navigator.of(context).push(
+                    Navigator.of(context)
+                        .push(
                       PageRouteBuilder(
                         opaque: false,
                         pageBuilder: (context, _, __) {
                           return const GrowthView();
                         },
                       ),
+                    )
+                        .then(
+                      (_) async {
+                        if (_treeManager.needName) {
+                          String? name = await showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) =>
+                                const NameAlert(),
+                          );
+
+                          if (name != null && name.isNotEmpty) {
+                            _treeManager.needName = false;
+                            _treeManager.name = name;
+                            _prefs.setString(PrefVals.treeName, name);
+                          }
+                        }
+                      },
                     );
                   },
                   child: TreeView(treeName: _treeManager.getCurTree()),
