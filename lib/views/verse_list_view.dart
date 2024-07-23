@@ -7,6 +7,7 @@ import 'package:bibletree/views/empty_view.dart';
 import 'package:bibletree/views/record/record_view.dart';
 import 'package:bibletree/views/verse_list_card.dart';
 import 'package:flutter/material.dart';
+import 'package:implicitly_animated_list/implicitly_animated_list.dart';
 
 class VerseListView extends StatefulWidget {
   const VerseListView({super.key});
@@ -49,13 +50,12 @@ class _VerseListViewState extends State<VerseListView> {
 
               return records.isEmpty
                   ? const EmptyView()
-                  : ListView.builder(
-                      itemCount: records.length,
-                      itemBuilder: (context, index) {
-                        RecordItem record = records[index];
-
+                  : ImplicitlyAnimatedList(
+                      itemData: records,
+                      itemBuilder: (_, record) {
                         return listItem(record);
                       },
+                      itemEquality: (a, b) => a.verseId == b.verseId,
                     );
             } else {
               return const Center(child: CircularProgressIndicator());
