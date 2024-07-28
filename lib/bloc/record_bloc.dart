@@ -29,4 +29,9 @@ class RecordBloc {
   void updateRecord(RecordItem record) async {
     await _recordRepository.updateRecord(record);
   }
+
+  /// Reset database
+  Future<void> resetDB() async {
+    await _recordRepository.resetDB();
+  }
 }

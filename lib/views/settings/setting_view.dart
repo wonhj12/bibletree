@@ -21,7 +21,8 @@ class _SettingViewState extends State<SettingView> {
         title: const Text('설정'),
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pop(
+                Provider.of<SettingProvider>(context, listen: false).reset);
           },
           icon: const Icon(Icons.arrow_back_ios_new),
         ),
@@ -34,16 +35,19 @@ class _SettingViewState extends State<SettingView> {
             const SizedBox(height: 16),
 
             // Tree settings
-            const SettingHeader(title: '나무 설정'),
+            if (Provider.of<SettingProvider>(context).treeName != null)
+              const SettingHeader(title: '나무 설정'),
 
             // Name
-            SettingInkwell(
-              name: '이름',
-              value: Provider.of<SettingProvider>(context).treeName,
-              onTap: () {},
-            ),
+            if (Provider.of<SettingProvider>(context).treeName != null)
+              SettingInkwell(
+                name: '이름',
+                value: Provider.of<SettingProvider>(context).treeName!,
+                onTap: () {},
+              ),
 
-            const SizedBox(height: 32),
+            if (Provider.of<SettingProvider>(context).treeName != null)
+              const SizedBox(height: 32),
 
             // System settings
             const SettingHeader(title: '앱 설정'),
@@ -181,7 +185,13 @@ class _SettingViewState extends State<SettingView> {
             const SettingHeader(title: '기타'),
 
             // Reset data
-            SettingInkwell(name: '데이터 재설정', value: '', onTap: () {}),
+            // TODO : popup
+            SettingInkwell(
+                name: '데이터 재설정',
+                value: '',
+                onTap: () async =>
+                    await Provider.of<SettingProvider>(context, listen: false)
+                        .resetData()),
           ],
         ),
       ),

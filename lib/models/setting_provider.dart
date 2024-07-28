@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:bibletree/bloc/record_bloc.dart';
+import 'package:bibletree/dao/record_dao.dart';
+import 'package:bibletree/repositories/record_repository.dart';
 import 'package:bibletree/statics/pref_vals.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,18 +12,18 @@ class SettingProvider with ChangeNotifier {
     _initialize();
   }
 
+  // Reset data status
+  bool reset = false;
+
   // Shared preferences
   late SharedPreferences _prefs;
-
-  // Tree related variables
-  // final TreeManager _treeManager = TreeManager(); // Tree Manager
 
   // Initialize saved settings
   Future<void> _initialize() async {
     _prefs = await SharedPreferences.getInstance();
 
     // Set tree name
-    treeName = _prefs.getString(PrefVals.treeName) ?? '나무';
+    treeName = _prefs.getString(PrefVals.treeName);
 
     // Set theme mode
     switch (_prefs.getString(PrefVals.theme)) {
@@ -48,7 +51,7 @@ class SettingProvider with ChangeNotifier {
   }
 
   /* Tree */
-  String treeName = '나무';
+  String? treeName;
 
   /* Theme */
   ThemeMode themeMode = ThemeMode.system;
@@ -91,5 +94,26 @@ class SettingProvider with ChangeNotifier {
     haptics = value;
     _prefs.setBool(PrefVals.haptic, value);
     notifyListeners();
+  }
+
+  /// Reset data
+  Future<void> resetData() async {
+    final RecordBloc recordBloc = RecordBloc(RecordRepository(RecordDao()));
+
+    // Reset shared prefs
+    await _prefs.remove(PrefVals.canWater);
+    await _prefs.remove(PrefVals.firstLogin);
+    await _prefs.remove(PrefVals.growth);
+    await _prefs.remove(PrefVals.haptic);
+    await _prefs.remove(PrefVals.lastLogin);
+    await _prefs.remove(PrefVals.noti);
+    await _prefs.remove(PrefVals.theme);
+    await _prefs.remove(PrefVals.todayId);
+    await _prefs.remove(PrefVals.treeName);
+
+    // Reset db
+    await recordBloc.resetDB();
+
+    reset = true;
   }
 }

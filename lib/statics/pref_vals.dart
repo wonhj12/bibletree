@@ -1,14 +1,17 @@
 class PrefVals {
+  static const String firstLogin = 'firstLogin';
+
   /* Verse related */
   /// Today's verse ID
   static const String todayId = 'todayId';
 
-  /// Recorded status of previous verse
-  // static const String recorded = 'recorded';
   /// Last login date
   static const String lastLogin = 'lastLogin';
 
   /* Tree related */
+  /// Water status
+  static const String canWater = 'canWater';
+
   /// Growth value of current tree
   static const String growth = 'growth';
 

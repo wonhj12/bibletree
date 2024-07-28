@@ -24,12 +24,6 @@ class _RecordViewState extends State<RecordView> {
   String _thought = '';
   bool _like = false;
 
-  /// Update today's recorded status to true
-  // updateRecorded() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   // prefs.setBool('recorded', true);
-  // }
-
   @override
   void initState() {
     super.initState();
@@ -75,12 +69,13 @@ class _RecordViewState extends State<RecordView> {
           // Save button
           IconButton(
               onPressed: () async {
+                bool newRecord = false;
+
                 if (widget.record == null) {
                   // Create new record
                   _recordBloc.createRecord(RecordItem(
                       null, widget.verse.id, _like, _thought, DateTime.now()));
-                  // Set recorded status to true
-                  // await updateRecorded();
+                  newRecord = true; // Set can water to true
                 } else {
                   // Update record
                   RecordItem update = RecordItem(
@@ -92,7 +87,7 @@ class _RecordViewState extends State<RecordView> {
                   _recordBloc.updateRecord(update);
                 }
                 if (!context.mounted) return;
-                Navigator.pop(context);
+                Navigator.pop(context, newRecord);
               },
               icon: const Icon(Icons.check_outlined))
         ],

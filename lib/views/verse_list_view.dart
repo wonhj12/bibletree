@@ -53,6 +53,7 @@ class _VerseListViewState extends State<VerseListView> {
                   : ImplicitlyAnimatedList(
                       itemData: records,
                       itemBuilder: (_, record) {
+                        print(record.id);
                         return listItem(record);
                       },
                       itemEquality: (a, b) => a.verseId == b.verseId,

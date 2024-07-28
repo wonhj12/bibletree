@@ -39,4 +39,12 @@ class RecordDao {
         result.isNotEmpty ? RecordItem.fromDatabaseJson(result.first) : null;
     return record;
   }
+
+  /// Reset database
+  Future<void> resetDB() async {
+    final db = await dbProvider.database;
+    await db.delete('records');
+    await db
+        .rawUpdate('DELETE FROM sqlite_sequence WHERE name = ?', ['records']);
+  }
 }

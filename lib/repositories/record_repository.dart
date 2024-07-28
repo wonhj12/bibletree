@@ -12,4 +12,6 @@ class RecordRepository {
 
   Future<int> updateRecord(RecordItem record) =>
       _recordDao.updateRecord(record);
+
+  Future<void> resetDB() => _recordDao.resetDB();
 }

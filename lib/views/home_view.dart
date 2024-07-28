@@ -8,6 +8,7 @@ import 'package:bibletree/views/record/record_view.dart';
 import 'package:bibletree/views/settings/setting_view.dart';
 import 'package:bibletree/views/tree/growth_view.dart';
 import 'package:bibletree/views/tree/tree_view.dart';
+import 'package:bibletree/views/tree/water_view.dart';
 import 'package:bibletree/views/verse_view.dart';
 import 'package:bibletree/views/widgets/name_alert.dart';
 import 'package:flutter/material.dart';
@@ -31,10 +32,14 @@ class _HomeViewState extends State<HomeView> {
 
   RecordItem? _todayRecord; // Today Record item
   int _todayId = 0; // today id
+  bool _canWater = false; // Water status of tree
 
   /// Fetch today record from database
   void initialize() async {
     _prefs = await SharedPreferences.getInstance();
+
+    // Check first login
+    bool firstLogin = _prefs.getBool(PrefVals.firstLogin) ?? true;
 
     // Get today's id
     int id = _prefs.getInt(PrefVals.todayId) ?? 0;
@@ -42,17 +47,19 @@ class _HomeViewState extends State<HomeView> {
     // Get last login DateTime
     final lastLogin = DateTime.fromMillisecondsSinceEpoch(
         _prefs.getInt(PrefVals.lastLogin) ?? 0);
-    // Check if recorded
-    // final recorded = _prefs.getBool(PrefVals.recorded) ?? false;
-    // last login time is not today
-    if (!DateUtils.isSameDay(lastLogin, DateTime.now())) {
+
+    if (firstLogin) {
+      await _prefs.setBool(PrefVals.firstLogin, false);
+      await _prefs.setInt(
+          PrefVals.lastLogin, DateTime.now().millisecondsSinceEpoch);
+    } else if (!DateUtils.isSameDay(lastLogin, DateTime.now())) {
+      // last login time is not today
       // Update today id
       id = id + 1;
       await _prefs.setInt(PrefVals.todayId, id);
       // Update login time
       await _prefs.setInt(
           PrefVals.lastLogin, DateTime.now().millisecondsSinceEpoch);
-      // await _prefs.setBool(PrefVals.recorded, false);
     }
 
     // Get record from database
@@ -64,11 +71,15 @@ class _HomeViewState extends State<HomeView> {
     // Get tree name
     final name = _prefs.getString(PrefVals.treeName) ?? '나무';
 
+    // Get water status
+    final canWater = _prefs.getBool(PrefVals.canWater) ?? false;
+
     setState(() {
       _todayId = id;
       _todayRecord = record;
       _treeManager.growth = growth;
       _treeManager.name = name;
+      _canWater = canWater;
     });
   }
 
@@ -99,8 +110,16 @@ class _HomeViewState extends State<HomeView> {
           leading: IconButton(
             onPressed: () {
               // Open settings
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const SettingView()));
+              Navigator.of(context)
+                  .push(
+                MaterialPageRoute(builder: (context) => const SettingView()),
+              )
+                  .then((value) {
+                if (value != null && value) {
+                  // Reload home view if data reset
+                  initialize();
+                }
+              });
             },
             icon: const Icon(Icons.format_list_bulleted),
           ),
@@ -117,7 +136,11 @@ class _HomeViewState extends State<HomeView> {
                           builder: (context) => RecordView(_todayRecord,
                               VerseSingleton.instance.list[_todayId]),
                           fullscreenDialog: true))
-                      .then((value) => initialize());
+                      .then((value) {
+                    // Set water status to true if new record is entered
+                    if (value != null) setWater(value);
+                    initialize();
+                  });
                 },
                 child: Container(
                   margin: const EdgeInsets.fromLTRB(16, 54, 16, 0),
@@ -129,45 +152,58 @@ class _HomeViewState extends State<HomeView> {
               const Spacer(),
 
               // Tree view
-              Container(
-                alignment: Alignment.bottomCenter,
-                margin: const EdgeInsets.only(bottom: 100),
-                child: GestureDetector(
-                  onTap: () {
-                    // Increment tree growth
-                    growTree();
+              Stack(
+                alignment: Alignment.topRight,
+                children: [
+                  // Plant image
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    margin: const EdgeInsets.only(bottom: 100),
+                    child: TreeView(treeName: _treeManager.getCurTree()),
+                  ),
 
-                    // Show growth view
-                    Navigator.of(context)
-                        .push(
-                      PageRouteBuilder(
-                        opaque: false,
-                        pageBuilder: (context, _, __) {
-                          return const GrowthView();
-                        },
-                      ),
-                    )
-                        .then(
-                      (_) async {
-                        if (_treeManager.needName) {
-                          String? name = await showDialog(
-                            context: context,
-                            barrierDismissible: false,
-                            builder: (BuildContext context) =>
-                                const NameAlert(),
-                          );
+                  // Water
+                  if (_canWater)
+                    GestureDetector(
+                      onTap: () {
+                        // Increment tree growth
+                        growTree();
+                        setWater(false);
 
-                          if (name != null && name.isNotEmpty) {
-                            _treeManager.needName = false;
-                            _treeManager.name = name;
-                            _prefs.setString(PrefVals.treeName, name);
-                          }
-                        }
+                        // Show growth view
+                        Navigator.of(context)
+                            .push(
+                          PageRouteBuilder(
+                            opaque: false,
+                            pageBuilder: (context, _, __) {
+                              return const GrowthView();
+                            },
+                          ),
+                        )
+                            .then(
+                          (_) async {
+                            if (_treeManager.needName) {
+                              String? name = await showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (BuildContext context) =>
+                                    const NameAlert(),
+                              );
+
+                              if (name != null && name.isNotEmpty) {
+                                _treeManager.needName = false;
+                                _treeManager.name = name;
+                                _prefs.setString(PrefVals.treeName, name);
+                              }
+                            }
+                          },
+                        );
                       },
-                    );
-                  },
-                  child: TreeView(treeName: _treeManager.getCurTree()),
-                ),
+                      child: Container(
+                          margin: const EdgeInsets.only(right: 16, top: 16),
+                          child: const WaterView()),
+                    ),
+                ],
               ),
             ],
           ),
@@ -182,6 +218,15 @@ class _HomeViewState extends State<HomeView> {
       _treeManager.growth += 1;
     });
 
-    _prefs.setInt(PrefVals.growth, _treeManager.growth);
+    await _prefs.setInt(PrefVals.growth, _treeManager.growth);
+  }
+
+  /// Set water status of tree
+  void setWater(bool canWater) async {
+    setState(() {
+      _canWater = (canWater);
+    });
+
+    await _prefs.setBool(PrefVals.canWater, canWater);
   }
 }
