@@ -200,8 +200,9 @@ class _HomeViewState extends State<HomeView> {
                         );
                       },
                       child: Container(
-                          margin: const EdgeInsets.only(right: 16, top: 16),
-                          child: const WaterView()),
+                        margin: const EdgeInsets.only(right: 16, top: 16),
+                        child: const WaterView(),
+                      ),
                     ),
                 ],
               ),

@@ -8,8 +8,8 @@ class WaterView extends StatelessWidget {
     return Image.asset(
       'assets/images/water.png',
       key: const ValueKey<String>('water.png'),
-      width: 164,
-      height: 164,
+      width: 160,
+      height: 160,
     );
   }
 }
