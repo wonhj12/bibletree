@@ -1,22 +1,10 @@
-import 'package:bibletree/config/app_router.dart';
-import 'package:bibletree/dao/record_dao.dart';
-import 'package:bibletree/main.dart';
-import 'package:bibletree/models/record_item.dart';
-import 'package:bibletree/models/verse_singleton.dart';
-import 'package:bibletree/models/tree_manager.dart';
 import 'package:bibletree/models/verse.dart';
-import 'package:bibletree/statics/pref_vals.dart';
 import 'package:bibletree/viewModels/home_view_model.dart';
-import 'package:bibletree/views/record/record_view.dart';
-import 'package:bibletree/views/settings/setting_view.dart';
-import 'package:bibletree/views/tree/growth_view.dart';
 import 'package:bibletree/views/tree/tree_view.dart';
 import 'package:bibletree/views/tree/water_view.dart';
 import 'package:bibletree/widgets/verse_view.dart';
-import 'package:bibletree/widgets/name_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});

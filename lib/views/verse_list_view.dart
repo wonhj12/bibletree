@@ -4,7 +4,6 @@ import 'package:bibletree/models/verse_singleton.dart';
 import 'package:bibletree/repositories/record_repository.dart';
 import 'package:bibletree/models/record_item.dart';
 import 'package:bibletree/views/empty_view.dart';
-import 'package:bibletree/views/record/record_view.dart';
 import 'package:bibletree/views/verse_list_card.dart';
 import 'package:flutter/material.dart';
 import 'package:implicitly_animated_list/implicitly_animated_list.dart';

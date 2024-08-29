@@ -46,7 +46,7 @@ class HomeViewModel with ChangeNotifier {
       if (context.mounted) {
         String? name = '';
 
-        if (name != null && name.isNotEmpty) {
+        if (/* name != null && */ name.isNotEmpty) {
           userModel.treeName = name;
         }
       }
