@@ -1,4 +1,5 @@
 import 'package:bibletree/model/record_model.dart';
+import 'package:bibletree/model/setting_model.dart';
 import 'package:bibletree/model/user_model.dart';
 import 'package:bibletree/viewModels/home_view_model.dart';
 import 'package:bibletree/views/home_view.dart';
@@ -8,14 +9,24 @@ import 'package:provider/provider.dart';
 class AppRouter {
   final UserModel userModel;
   final RecordModel recordModel;
-  AppRouter({required this.userModel, required this.recordModel});
+  final SettingModel settingModel;
 
-  static GoRouter getRouter(UserModel userModel, RecordModel recordModel) {
+  AppRouter({
+    required this.userModel,
+    required this.recordModel,
+    required this.settingModel,
+  });
+
+  static GoRouter getRouter(
+    UserModel userModel,
+    RecordModel recordModel,
+    SettingModel settingModel,
+  ) {
     return GoRouter(
-      initialLocation: '/',
+      initialLocation: '/home',
       routes: [
         GoRoute(
-          path: '/',
+          path: '/home',
           builder: (context, state) => ChangeNotifierProvider(
             create: (context) => HomeViewModel(userModel: userModel),
             child: const HomeView(),
