@@ -1,3 +1,4 @@
+import 'package:bibletree/config/record_data_source.dart';
 import 'package:bibletree/model/record_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -19,14 +20,36 @@ class RecordViewModel with ChangeNotifier {
   }
 
   /// 좋아요 버튼 클릭시 호출되는 함수
-  void onPressedLike() {
+  void onPressedLike() async {
     like = !like;
+    recordModel.like = like;
+
+    // 수정 모드일 때 바로 DB 업데이트
+    if (recordModel.recordId != null) {
+      try {
+        await RecordDataSource().updateRecord(recordModel.toJsonDatabase());
+      } catch (e) {
+        debugPrint('저장 실패: $e');
+      }
+    }
+
     notifyListeners();
   }
 
   /// 저장 버튼 클릭시 호출되는 함수
-  void onPressedSave() {
-    context.pop();
+  void onPressedSave() async {
+    try {
+      final isNewRecord = recordModel.recordId == null;
+      if (isNewRecord) {
+        await RecordDataSource().createRecord(recordModel.toJsonDatabase());
+      } else {
+        await RecordDataSource().updateRecord(recordModel.toJsonDatabase());
+      }
+
+      if (context.mounted) context.pop(isNewRecord);
+    } catch (e) {
+      debugPrint('저장 실패: $e');
+    }
   }
 
   /// 느낀점 입력시 호출되는 함수

@@ -17,12 +17,12 @@ import 'package:flutter/material.dart';
 class RecordModel with ChangeNotifier {
   /* 현재 선택된 Record 정보 */
   int? recordId; // Record id
+  int? verseId; // 말씀 id
   bool? like; // 좋아요 여부
   String? thought; // 느낀 점
   DateTime? createdAt; // 등록 날짜
 
   /* 현재 선택된 말씀 정보 */
-  int? verseId; // 말씀 id
   String? book; // 책
   String? chapter; // 장
   String? verse; // 절
@@ -34,4 +34,17 @@ class RecordModel with ChangeNotifier {
     this.createdAt,
     this.verseId,
   });
+
+  /// DB에 저장하기 위한 json 변환
+  ///
+  /// verseId, like, thought, createdAt
+  Map<String, dynamic> toJsonDatabase() {
+    return {
+      'id': recordId,
+      'verseId': verseId,
+      'like': (like ?? false) ? 1 : 0,
+      'thought': thought,
+      'createdAt': createdAt?.millisecondsSinceEpoch
+    };
+  }
 }
