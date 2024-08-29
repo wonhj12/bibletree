@@ -40,7 +40,10 @@ class AppRouter {
               GoRoute(
                 path: 'record',
                 builder: (context, state) => ChangeNotifierProvider(
-                  create: (context) => RecordViewModel(),
+                  create: (context) => RecordViewModel(
+                    recordModel: recordModel,
+                    context: context,
+                  ),
                   child: const RecordView(),
                 ),
               )
