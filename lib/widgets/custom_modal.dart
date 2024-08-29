@@ -1,4 +1,4 @@
-import 'package:bibletree/views/widgets/modal_inkwell.dart';
+import 'package:bibletree/widgets/modal_inkwell.dart';
 import 'package:flutter/material.dart';
 
 class CustomModal extends StatelessWidget {

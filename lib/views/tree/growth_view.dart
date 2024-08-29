@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:bibletree/models/tree_manager.dart';
 import 'package:bibletree/statics/app_statics.dart';
 import 'package:bibletree/views/tree/tree_view.dart';
-import 'package:bibletree/views/widgets/shaker.dart';
+import 'package:bibletree/widgets/shaker.dart';
 import 'package:flutter/material.dart';
 
 class GrowthView extends StatefulWidget {

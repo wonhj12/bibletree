@@ -1,8 +1,8 @@
 import 'package:bibletree/models/setting_provider.dart';
-import 'package:bibletree/views/widgets/custom_modal.dart';
-import 'package:bibletree/views/widgets/modal_inkwell.dart';
-import 'package:bibletree/views/widgets/setting_header.dart';
-import 'package:bibletree/views/widgets/setting_inkwell.dart';
+import 'package:bibletree/widgets/custom_modal.dart';
+import 'package:bibletree/widgets/modal_inkwell.dart';
+import 'package:bibletree/widgets/setting_header.dart';
+import 'package:bibletree/widgets/setting_inkwell.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

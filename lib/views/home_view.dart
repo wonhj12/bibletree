@@ -13,7 +13,7 @@ import 'package:bibletree/views/tree/growth_view.dart';
 import 'package:bibletree/views/tree/tree_view.dart';
 import 'package:bibletree/views/tree/water_view.dart';
 import 'package:bibletree/views/verse_view.dart';
-import 'package:bibletree/views/widgets/name_alert.dart';
+import 'package:bibletree/widgets/name_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
