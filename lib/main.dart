@@ -75,6 +75,7 @@ class BibleTreeApp extends StatelessWidget {
       theme: CustomThemeData.light,
       darkTheme: CustomThemeData.dark,
       themeMode: settingModel.theme,
+      debugShowCheckedModeBanner: false,
       routerConfig: _router,
     );
   }

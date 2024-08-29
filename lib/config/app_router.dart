@@ -28,7 +28,10 @@ class AppRouter {
         GoRoute(
           path: '/home',
           builder: (context, state) => ChangeNotifierProvider(
-            create: (context) => HomeViewModel(userModel: userModel),
+            create: (context) => HomeViewModel(
+              userModel: userModel,
+              context: context,
+            ),
             child: const HomeView(),
           ),
         ),
