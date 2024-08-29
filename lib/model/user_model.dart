@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum Theme { system, light, dark }
+// enum Theme { system, light, dark }
 
 /// ### 사용자 데이터를 저장하고 관리하는 클래스
 /// 설정, 나무에 관련된 변수 및 함수를 담당
@@ -21,7 +21,7 @@ enum Theme { system, light, dark }
 /// * `String? verse`
 class UserModel with ChangeNotifier {
   /* 설정 관련 변수 */
-  Theme theme = Theme.system; // 앱 테마 : system, light, dark
+  ThemeMode theme = ThemeMode.system; // 앱 테마 : system, light, dark
   bool notification = true; // 알림 수신 여부
   bool haptic = true; // 햅틱 진동 여부
 
@@ -34,6 +34,9 @@ class UserModel with ChangeNotifier {
   String? book; // 책
   String? chapter; // 장
   String? verse; // 절
+
+  /* 기타 사용자 관련 변수 */
+  bool isFirstTimeLogin = false;
 
   UserModel({
     this.treeName,
