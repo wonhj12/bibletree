@@ -28,7 +28,7 @@ class HomeViewModel with ChangeNotifier {
 
   /// 말씀 카드 클릭시 호출되는 함수
   void onTapVerseCard() async {
-    await GoRouter.of(context).push('');
+    await GoRouter.of(context).push('/home/record');
   }
 
   /// 나무에 물 줄 때 호출되는 함수

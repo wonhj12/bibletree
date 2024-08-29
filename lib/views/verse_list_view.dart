@@ -73,11 +73,11 @@ class _VerseListViewState extends State<VerseListView> {
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(
-                  builder: (context) => RecordView(
-                      record, VerseSingleton.instance.list[record.verseId])))
-              .then((value) => _recordBloc.getRecordList());
+          // Navigator.of(context)
+          //     .push(MaterialPageRoute(
+          //         builder: (context) => RecordView(
+          //             record, VerseSingleton.instance.list[record.verseId])))
+          //     .then((value) => _recordBloc.getRecordList());
         },
         child:
             VerseListTile(verse: VerseSingleton.instance.list[record.verseId]),
