@@ -17,12 +17,15 @@ class RecordModel with ChangeNotifier {
   String? thought; // 느낀 점
   DateTime? createdAt; // 등록 날짜
 
+  List<Map<String, dynamic>>? records;
+
   RecordModel({
     this.id,
     this.verseId,
     this.like,
     this.thought,
     this.createdAt,
+    this.records,
   });
 
   void fromJson(Map<String, dynamic> jsonData) {

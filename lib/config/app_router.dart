@@ -3,6 +3,7 @@ import 'package:bibletree/model/setting_model.dart';
 import 'package:bibletree/model/user_model.dart';
 import 'package:bibletree/viewModels/home_view_model.dart';
 import 'package:bibletree/viewModels/record_view_model.dart';
+import 'package:bibletree/viewModels/verse_list_view_model.dart';
 import 'package:bibletree/views/home_view.dart';
 import 'package:bibletree/views/record_view.dart';
 import 'package:bibletree/views/verse_list_view.dart';
@@ -72,7 +73,7 @@ class AppRouter {
                 GoRoute(
                   path: '/verse-list',
                   builder: (context, state) => ChangeNotifierProvider(
-                    create: (context) => RecordViewModel(
+                    create: (context) => VerseListViewModel(
                       recordModel: recordModel,
                       context: context,
                     ),

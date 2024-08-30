@@ -5,15 +5,15 @@ class RecordDataSource {
   final dbProvider = DatabaseProvider.provider;
 
   /// Get list of saved RecordItems from database
-  // Future<List<RecordItem>> getRecordList() async {
-  //   final db = await dbProvider.database;
-  //   List<Map<String, dynamic>> result =
-  //       await db.query('records', orderBy: 'id DESC');
-  //   List<RecordItem> recordList = result.isNotEmpty
-  //       ? result.map((item) => RecordItem.fromDatabaseJson(item)).toList()
-  //       : [];
-  //   return recordList;
-  // }
+  Future<List<Map<String, dynamic>>> getRecordList() async {
+    final db = await dbProvider.database;
+    List<Map<String, dynamic>> result = await db.query(
+      'records',
+      columns: ['id', 'verseId', 'like'],
+      orderBy: 'id DESC',
+    );
+    return result;
+  }
 
   /// 신규 데이터 추가
   Future<int> createRecord(Map<String, dynamic> jsonData) async {

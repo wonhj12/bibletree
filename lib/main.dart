@@ -1,5 +1,6 @@
 import 'package:bibletree/config/app_router.dart';
 import 'package:bibletree/config/local_data_source.dart';
+import 'package:bibletree/config/record_data_source.dart';
 import 'package:bibletree/model/record_model.dart';
 import 'package:bibletree/model/setting_model.dart';
 import 'package:bibletree/model/user_model.dart';
@@ -40,6 +41,12 @@ Future<void> initializeData() async {
     if (settingResponse is Map<String, dynamic>) {
       // 유저 정보가 존재한다면 데이터 불러오기
       // settingModel.fromJson(settingResponse);
+    }
+
+    dynamic recordResponse = await RecordDataSource().getRecordList();
+
+    if (recordResponse is List<Map<String, dynamic>>) {
+      recordModel.records = recordResponse;
     }
 
     // 초기화 완료 후 로그인 시간 및 수정된 데이터 업데이트
