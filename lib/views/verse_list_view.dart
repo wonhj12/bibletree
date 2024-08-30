@@ -17,53 +17,54 @@ class VerseListView extends StatefulWidget {
 
 class _VerseListViewState extends State<VerseListView> {
   // Data related variables
-  final RecordBloc _recordBloc = RecordBloc(RecordRepository(RecordDao()));
+  // final RecordBloc _recordBloc = RecordBloc(RecordRepository(RecordDao()));
 
   bool _like = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('묵상 목록'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              setState(() {
-                _like = !_like;
-              });
-            },
-            icon: Icon(_like ? Icons.favorite : Icons.favorite_outline,
-                color: _like ? Colors.red : null),
-          )
-        ],
-      ),
-      body: SafeArea(
-        child: StreamBuilder(
-          stream: _recordBloc.recordListStream,
-          builder: (context, AsyncSnapshot<List<RecordItem>> snapshot) {
-            if (snapshot.hasData) {
-              List<RecordItem> records = _like
-                  ? snapshot.data!.where((record) => record.like).toList()
-                  : snapshot.data!;
-
-              return records.isEmpty
-                  ? const EmptyView()
-                  : ImplicitlyAnimatedList(
-                      itemData: records,
-                      itemBuilder: (_, record) {
-                        print(record.id);
-                        return listItem(record);
-                      },
-                      itemEquality: (a, b) => a.verseId == b.verseId,
-                    );
-            } else {
-              return const Center(child: CircularProgressIndicator());
-            }
-          },
+        appBar: AppBar(
+          title: const Text('묵상 목록'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                setState(() {
+                  _like = !_like;
+                });
+              },
+              icon: Icon(_like ? Icons.favorite : Icons.favorite_outline,
+                  color: _like ? Colors.red : null),
+            )
+          ],
         ),
-      ),
-    );
+        body: Container()
+        // SafeArea(
+        //   child: StreamBuilder(
+        //     stream: _recordBloc.recordListStream,
+        //     builder: (context, AsyncSnapshot<List<RecordItem>> snapshot) {
+        //       if (snapshot.hasData) {
+        //         List<RecordItem> records = _like
+        //             ? snapshot.data!.where((record) => record.like).toList()
+        //             : snapshot.data!;
+
+        //         return records.isEmpty
+        //             ? const EmptyView()
+        //             : ImplicitlyAnimatedList(
+        //                 itemData: records,
+        //                 itemBuilder: (_, record) {
+        //                   print(record.id);
+        //                   return listItem(record);
+        //                 },
+        //                 itemEquality: (a, b) => a.verseId == b.verseId,
+        //               );
+        //       } else {
+        //         return const Center(child: CircularProgressIndicator());
+        //       }
+        //     },
+        //   ),
+        // ),
+        );
   }
 
   Widget listItem(RecordItem record) {
