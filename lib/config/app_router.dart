@@ -32,6 +32,7 @@ class AppRouter {
             builder: (context, state) => ChangeNotifierProvider(
                   create: (context) => HomeViewModel(
                     userModel: userModel,
+                    recordModel: recordModel,
                     context: context,
                   ),
                   child: const HomeView(),

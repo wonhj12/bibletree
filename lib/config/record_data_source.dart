@@ -45,14 +45,12 @@ class RecordDataSource {
   }
 
   /// Get RecordItem by index
-  // Future<RecordItem?> getRecordItem(int index) async {
-  //   final db = await dbProvider.database;
-  //   List<Map<String, dynamic>> result =
-  //       await db.query('records', where: 'id = ?', whereArgs: [index + 1]);
-  //   RecordItem? record =
-  //       result.isNotEmpty ? RecordItem.fromDatabaseJson(result.first) : null;
-  //   return record;
-  // }
+  Future<Map<String, dynamic>?> getRecordItem(int index) async {
+    final db = await dbProvider.database;
+    List<Map<String, dynamic>> result =
+        await db.query('records', where: 'id = ?', whereArgs: [index + 1]);
+    return result.isNotEmpty ? result.first : null;
+  }
 
   /// Reset database
   // Future<void> resetDB() async {

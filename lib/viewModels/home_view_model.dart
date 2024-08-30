@@ -1,13 +1,20 @@
 import 'package:bibletree/config/local_data_source.dart';
+import 'package:bibletree/config/record_data_source.dart';
+import 'package:bibletree/model/record_model.dart';
 import 'package:bibletree/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class HomeViewModel with ChangeNotifier {
   UserModel userModel;
+  RecordModel recordModel;
   BuildContext context;
 
-  HomeViewModel({required this.userModel, required this.context}) {
+  HomeViewModel({
+    required this.userModel,
+    required this.recordModel,
+    required this.context,
+  }) {
     _initialize();
   }
 
@@ -28,7 +35,17 @@ class HomeViewModel with ChangeNotifier {
 
   /// 말씀 카드 클릭시 호출되는 함수
   void onTapVerseCard() async {
-    await GoRouter.of(context).push('/home/record');
+    try {
+      final response =
+          await RecordDataSource().getRecordItem(userModel.verseId - 1);
+      if (response is Map<String, dynamic>) {
+        recordModel.fromJson(response);
+      }
+    } catch (e) {
+      debugPrint('Record 불러오기 실패: $e');
+    }
+
+    if (context.mounted) await GoRouter.of(context).push('/home/record');
   }
 
   /// 나무에 물 줄 때 호출되는 함수
