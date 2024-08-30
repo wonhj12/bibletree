@@ -5,7 +5,7 @@ import 'package:bibletree/models/verse.dart';
 import 'package:bibletree/statics/app_statics.dart';
 import 'package:bibletree/viewModels/record_view_model.dart';
 import 'package:bibletree/views/record/text_input_view.dart';
-import 'package:bibletree/widgets/verse_view.dart';
+import 'package:bibletree/widgets/verse_card.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -97,7 +97,7 @@ class _RecordViewState extends State<RecordView> {
                 // Verse view
                 Container(
                   margin: const EdgeInsets.all(24),
-                  child: VerseView(Verse(
+                  child: VerseCard(Verse(
                     id: 0,
                     book: 'book',
                     chapter: 'chapter',

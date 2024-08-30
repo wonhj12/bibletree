@@ -2,7 +2,7 @@ import 'package:bibletree/models/verse.dart';
 import 'package:bibletree/viewModels/home_view_model.dart';
 import 'package:bibletree/views/tree/tree_view.dart';
 import 'package:bibletree/views/tree/water_view.dart';
-import 'package:bibletree/widgets/verse_view.dart';
+import 'package:bibletree/widgets/verse_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -141,7 +141,7 @@ class _HomeViewState extends State<HomeView> {
                 // },
                 child: Container(
                   margin: const EdgeInsets.fromLTRB(16, 54, 16, 0),
-                  child: VerseView(todayVerse),
+                  child: VerseCard(todayVerse),
                 ),
               ),
 
