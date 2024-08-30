@@ -15,6 +15,14 @@ class RecordDataSource {
     return result;
   }
 
+  /// Id에 해당하는 Record 불러오기
+  Future<Map<String, dynamic>?> getRecordItem(int id) async {
+    final db = await dbProvider.database;
+    List<Map<String, dynamic>> result =
+        await db.query('records', where: 'id = ?', whereArgs: [id]);
+    return result.isNotEmpty ? result.first : null;
+  }
+
   /// 신규 데이터 추가
   Future<int> createRecord(Map<String, dynamic> jsonData) async {
     try {
@@ -42,14 +50,6 @@ class RecordDataSource {
       debugPrint('updateRecord 실패: $e');
       throw ErrorDescription('updateRecord failed');
     }
-  }
-
-  /// Get RecordItem by index
-  Future<Map<String, dynamic>?> getRecordItem(int index) async {
-    final db = await dbProvider.database;
-    List<Map<String, dynamic>> result =
-        await db.query('records', where: 'id = ?', whereArgs: [index + 1]);
-    return result.isNotEmpty ? result.first : null;
   }
 
   /// Reset database

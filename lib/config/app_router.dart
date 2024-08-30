@@ -79,6 +79,18 @@ class AppRouter {
                     ),
                     child: const VerseListView(),
                   ),
+                  routes: [
+                    GoRoute(
+                      path: 'record',
+                      builder: (context, state) => ChangeNotifierProvider(
+                        create: (context) => RecordViewModel(
+                          recordModel: recordModel,
+                          context: context,
+                        ),
+                        child: const RecordView(),
+                      ),
+                    )
+                  ],
                 ),
               ],
             )

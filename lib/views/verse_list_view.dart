@@ -57,7 +57,8 @@ class _VerseListViewState extends State<VerseListView> {
                   margin: const EdgeInsets.fromLTRB(24, 6, 24, 6),
                   child: VerseListCard(
                     verse: verse,
-                    onTap: () => verseListViewModel.onTapVerseListCard(),
+                    onTap: () =>
+                        verseListViewModel.onTapVerseListCard(record['id']),
                   ),
                 ),
                 itemEquality: (a, b) => a['verseId'] == b['verseId'],
