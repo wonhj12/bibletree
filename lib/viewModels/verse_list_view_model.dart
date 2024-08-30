@@ -21,6 +21,14 @@ class VerseListViewModel with ChangeNotifier {
 
   void onPressedLike() {
     like = !like;
+    records = like
+        ? records.where((element) => element['like'] == 1).toList()
+        : recordModel.records ?? [];
+
     notifyListeners();
+  }
+
+  void onTapVerseListCard() {
+    print('a');
   }
 }
