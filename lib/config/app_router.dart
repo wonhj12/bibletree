@@ -4,7 +4,7 @@ import 'package:bibletree/model/user_model.dart';
 import 'package:bibletree/viewModels/home_view_model.dart';
 import 'package:bibletree/viewModels/record_view_model.dart';
 import 'package:bibletree/views/home_view.dart';
-import 'package:bibletree/views/record/record_view.dart';
+import 'package:bibletree/views/record_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
