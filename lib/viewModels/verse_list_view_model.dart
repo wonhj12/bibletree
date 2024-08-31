@@ -19,7 +19,7 @@ class VerseListViewModel with ChangeNotifier {
 
   // 데이터 초기화
   void _initialize() {
-    records = recordModel.records ?? [];
+    records = recordModel.records;
   }
 
   /// 좋아요 버튼 클릭시 호출되는 함수
@@ -27,7 +27,7 @@ class VerseListViewModel with ChangeNotifier {
     like = !like;
     records = like
         ? records.where((element) => element['like'] == 1).toList()
-        : recordModel.records ?? [];
+        : recordModel.records;
 
     notifyListeners();
   }

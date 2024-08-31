@@ -24,6 +24,8 @@ class RecordDataSource {
   }
 
   /// 신규 데이터 추가
+  ///
+  /// 추가된 Record의 `id`를 반환
   Future<int> createRecord(Map<String, dynamic> jsonData) async {
     try {
       final db = await dbProvider.database;

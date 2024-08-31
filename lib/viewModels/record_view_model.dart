@@ -51,7 +51,9 @@ class RecordViewModel with ChangeNotifier {
         recordModel.verseId = userModel.verseId;
         recordModel.like = like;
         recordModel.createdAt = DateTime.now();
-        await RecordDataSource().createRecord(recordModel.toJsonDatabase());
+        final id =
+            await RecordDataSource().createRecord(recordModel.toJsonDatabase());
+        recordModel.addRecord(id);
       } else {
         // Record 수정
         if (thought != _initThought) {

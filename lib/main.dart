@@ -46,7 +46,7 @@ Future<void> initializeData() async {
     dynamic recordResponse = await RecordDataSource().getRecordList();
 
     if (recordResponse is List<Map<String, dynamic>>) {
-      recordModel.records = recordResponse;
+      recordModel.records = recordResponse.toList();
     }
 
     // 초기화 완료 후 로그인 시간 및 수정된 데이터 업데이트
