@@ -88,6 +88,18 @@ class UserModel with ChangeNotifier {
     }
   }
 
+  /// 데이터 초기화
+  void reset() {
+    treeName = null;
+    growth = 0;
+    canWater = false;
+    verseId = 0;
+    book = null;
+    chapter = null;
+    verse = null;
+    lastLogin = null;
+  }
+
   @override
   String toString() {
     return 'treeName: $treeName, '

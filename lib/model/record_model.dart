@@ -17,6 +17,10 @@ class RecordModel with ChangeNotifier {
   String? thought; // 느낀 점
   DateTime? createdAt; // 등록 날짜
 
+  /// 전체 Record 데이터
+  /// * `int? id`
+  /// * `int? verseId`
+  /// * `bool? like`
   List<Map<String, dynamic>>? records;
 
   RecordModel({
@@ -28,8 +32,9 @@ class RecordModel with ChangeNotifier {
     this.records,
   });
 
+  /// json 데이터를 모델에 저장
   void fromJson(Map<String, dynamic> jsonData) {
-    reset();
+    _resetRecord();
 
     id = jsonData['id'];
     verseId = jsonData['verseId'];
@@ -55,13 +60,23 @@ class RecordModel with ChangeNotifier {
     };
   }
 
-  /// 데이터 초기화
+  // 현재 Record 정보만 삭제
+  void _resetRecord() {
+    id = null;
+    verseId = null;
+    like = null;
+    thought = null;
+    createdAt = null;
+  }
+
+  /// 전체 데이터 초기화
   void reset() {
     id = null;
     verseId = null;
     like = null;
     thought = null;
     createdAt = null;
+    records = null;
   }
 
   @override

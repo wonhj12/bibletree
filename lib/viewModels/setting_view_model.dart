@@ -1,5 +1,6 @@
 import 'package:bibletree/config/local_data_source.dart';
 import 'package:bibletree/config/record_data_source.dart';
+import 'package:bibletree/model/record_model.dart';
 import 'package:bibletree/model/setting_model.dart';
 import 'package:bibletree/model/user_model.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +9,13 @@ import 'package:go_router/go_router.dart';
 class SettingViewModel with ChangeNotifier {
   UserModel userModel;
   SettingModel settingModel;
+  RecordModel recordModel;
   BuildContext context;
 
   SettingViewModel({
     required this.userModel,
     required this.settingModel,
+    required this.recordModel,
     required this.context,
   }) {
     _initialize();
@@ -76,7 +79,15 @@ class SettingViewModel with ChangeNotifier {
   /// 데이터 재설정하는 함수
   void resetData() async {
     try {
+      // DB 재설정
       await RecordDataSource().resetDB();
+
+      // 모델 재설정
+      userModel.reset();
+      settingModel.reset();
+      recordModel.reset();
+
+      // 저장된 데이터 삭제
       await LocalDataSource.deleteLocalData('user');
       await LocalDataSource.deleteLocalData('setting');
     } catch (e) {

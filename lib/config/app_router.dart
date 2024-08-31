@@ -72,6 +72,7 @@ class AppRouter {
                         create: (context) => SettingViewModel(
                           userModel: userModel,
                           settingModel: settingModel,
+                          recordModel: recordModel,
                           context: context,
                         ),
                         child: const SettingView(),

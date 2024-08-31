@@ -37,7 +37,7 @@ class HomeViewModel with ChangeNotifier {
   void onTapVerseCard() async {
     try {
       final response =
-          await RecordDataSource().getRecordItem(userModel.verseId - 1);
+          await RecordDataSource().getRecordItem(userModel.verseId + 1);
       if (response is Map<String, dynamic>) {
         recordModel.fromJson(response);
       }

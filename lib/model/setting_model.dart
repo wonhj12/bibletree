@@ -44,4 +44,11 @@ class SettingModel with ChangeNotifier {
       'haptic': haptic,
     });
   }
+
+  /// 데이터 초기화
+  void reset() {
+    theme = ThemeMode.system;
+    notification = true;
+    haptic = true;
+  }
 }
