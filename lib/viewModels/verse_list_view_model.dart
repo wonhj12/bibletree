@@ -12,6 +12,7 @@ class VerseListViewModel with ChangeNotifier {
     required this.context,
   }) {
     _initialize();
+    recordModel.addListener(_onRecordModelChange);
   }
 
   bool like = false;
@@ -20,6 +21,12 @@ class VerseListViewModel with ChangeNotifier {
   // 데이터 초기화
   void _initialize() {
     records = recordModel.records;
+    notifyListeners();
+  }
+
+  void _onRecordModelChange() {
+    records = recordModel.records;
+    notifyListeners();
   }
 
   /// 좋아요 버튼 클릭시 호출되는 함수

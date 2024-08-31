@@ -90,6 +90,8 @@ class SettingViewModel with ChangeNotifier {
       // 저장된 데이터 삭제
       await LocalDataSource.deleteLocalData('user');
       await LocalDataSource.deleteLocalData('setting');
+
+      notifyListeners();
     } catch (e) {
       debugPrint('데이터 재설정 실패: $e');
     }

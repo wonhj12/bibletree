@@ -21,7 +21,12 @@ class RecordModel with ChangeNotifier {
   /// * `int id`
   /// * `int verseId`
   /// * `bool like`
-  List<Map<String, dynamic>> records = [];
+  List<Map<String, dynamic>> _records = [];
+  List<Map<String, dynamic>> get records => _records;
+  set records(List<Map<String, dynamic>> newRecords) {
+    _records = newRecords;
+    notifyListeners();
+  }
 
   RecordModel({
     this.id,
@@ -65,7 +70,8 @@ class RecordModel with ChangeNotifier {
   /// `id`가 주어지면 데이터 추가, 없으면 업데이트
   void addRecord(int id) {
     final data = {'id': id, 'verseId': verseId, 'like': like};
-    records.add(data); // 데이터 추가
+    _records.add(data); // 데이터 추가
+    notifyListeners();
   }
 
   // 현재 Record 정보만 삭제
