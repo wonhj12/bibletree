@@ -18,7 +18,7 @@ class LocalDataSource {
       }
 
       dynamic response = await file.writeAsString(jsonData);
-      debugPrint('$target 데이터 저장 성공');
+      debugPrint('$target 데이터 저장');
       return response;
     } catch (e) {
       debugPrint('saveDataToLocal 실패: $e');
@@ -44,6 +44,26 @@ class LocalDataSource {
     } catch (e) {
       debugPrint('getLocalData failed: $e');
       throw ErrorDescription('getLocalData failed');
+    }
+  }
+
+  /// 로컬 저장소에 저장된 데이터를 삭제하는 함수
+  /// * **user** : 사용자 데이터
+  /// * **setting** : 설정 데이터
+  static Future<void> deleteLocalData(String target) async {
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final file = File('${directory.path}/$target.json');
+
+      if (await file.exists()) {
+        await file.delete();
+        debugPrint('$target 삭제');
+      } else {
+        debugPrint('$target 데이터 없음');
+      }
+    } catch (e) {
+      debugPrint('deleteLocalData failed: $e');
+      throw ErrorDescription('deleteLocalData failed');
     }
   }
 }

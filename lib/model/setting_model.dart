@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 /// ### 앱 설정 데이터를 저장하고 관리하는 클래스
@@ -13,4 +15,13 @@ class SettingModel with ChangeNotifier {
   bool haptic = true; // 햅틱 진동 여부
 
   SettingModel();
+
+  /// 설정 정보 json 변환
+  String toJson() {
+    return jsonEncode({
+      'theme': theme.toString(),
+      'notification': notification,
+      'haptic': haptic,
+    });
+  }
 }

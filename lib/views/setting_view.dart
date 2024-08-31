@@ -1,8 +1,9 @@
-import 'package:bibletree/models/setting_provider.dart';
+// import 'package:bibletree/models/setting_provider.dart';
 import 'package:bibletree/widgets/custom_modal.dart';
 import 'package:bibletree/widgets/modal_inkwell.dart';
-import 'package:bibletree/widgets/setting_header.dart';
 import 'package:bibletree/widgets/setting_inkwell.dart';
+import 'package:bibletree/viewModels/setting_view_model.dart';
+import 'package:bibletree/widgets/setting_header.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,14 +17,17 @@ class SettingView extends StatefulWidget {
 class _SettingViewState extends State<SettingView> {
   @override
   Widget build(BuildContext context) {
+    SettingViewModel settingViewModel = context.watch<SettingViewModel>();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('설정'),
         leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop(
-                Provider.of<SettingProvider>(context, listen: false).reset);
-          },
+          onPressed: () => settingViewModel.onPressedBackBtn(),
+          // {
+          //   Navigator.of(context).pop(
+          //       Provider.of<SettingProvider>(context, listen: false).reset);
+          // },
           icon: const Icon(Icons.arrow_back_ios_new),
         ),
       ),
@@ -34,28 +38,31 @@ class _SettingViewState extends State<SettingView> {
           children: [
             const SizedBox(height: 16),
 
-            // Tree settings
-            if (Provider.of<SettingProvider>(context).treeName != null)
+            /* 나무 설정 */
+            // 헤더
+            if (settingViewModel.userModel.treeName != null)
               const SettingHeader(title: '나무 설정'),
 
-            // Name
-            if (Provider.of<SettingProvider>(context).treeName != null)
+            // 이름
+            if (settingViewModel.userModel.treeName != null)
+              // if (Provider.of<SettingProvider>(context).treeName != null)
               SettingInkwell(
                 name: '이름',
-                value: Provider.of<SettingProvider>(context).treeName!,
+                value: settingViewModel.userModel.treeName!,
                 onTap: () {},
               ),
 
-            if (Provider.of<SettingProvider>(context).treeName != null)
+            if (settingViewModel.userModel.treeName != null)
               const SizedBox(height: 32),
 
-            // System settings
+            /* 앱 시스템 설정 */
+            // 헤더
             const SettingHeader(title: '앱 설정'),
 
-            // Theme
+            // 테마
             SettingInkwell(
               name: '테마',
-              value: Provider.of<SettingProvider>(context).getThemeName(),
+              value: settingViewModel.getThemeName(),
               onTap: () {
                 showModalBottomSheet(
                   context: context,
@@ -66,29 +73,23 @@ class _SettingViewState extends State<SettingView> {
                         ModalInkwell(
                           title: '라이트 모드',
                           isTop: true,
-                          onTap: () {
-                            Provider.of<SettingProvider>(context, listen: false)
-                                .changeTheme(ThemeMode.light);
-                          },
+                          onTap: () =>
+                              settingViewModel.changeTheme(ThemeMode.light),
                         ),
 
                         // Dark mode
                         ModalInkwell(
                           title: '다크 모드',
-                          onTap: () {
-                            Provider.of<SettingProvider>(context, listen: false)
-                                .changeTheme(ThemeMode.dark);
-                          },
+                          onTap: () =>
+                              settingViewModel.changeTheme(ThemeMode.dark),
                         ),
 
                         // System settings
                         ModalInkwell(
                           title: '시스템 설정',
                           isBottom: true,
-                          onTap: () {
-                            Provider.of<SettingProvider>(context, listen: false)
-                                .changeTheme(ThemeMode.system);
-                          },
+                          onTap: () =>
+                              settingViewModel.changeTheme(ThemeMode.system),
                         )
                       ],
                     );
@@ -98,12 +99,10 @@ class _SettingViewState extends State<SettingView> {
               },
             ),
 
-            // Notifications
+            // 알림 설정
             SettingInkwell(
               name: '알림',
-              value: Provider.of<SettingProvider>(context).notification
-                  ? '켬'
-                  : '끔',
+              value: settingViewModel.notification ? '켬' : '끔',
               onTap: () {
                 showModalBottomSheet(
                   context: context,
@@ -113,18 +112,14 @@ class _SettingViewState extends State<SettingView> {
                         ModalInkwell(
                           title: '알림 켜기',
                           isTop: true,
-                          onTap: () {
-                            Provider.of<SettingProvider>(context, listen: false)
-                                .changeNotification(true);
-                          },
+                          onTap: () =>
+                              settingViewModel.changeNotification(true),
                         ),
                         ModalInkwell(
                           title: '알림 끄기',
                           isBottom: true,
-                          onTap: () {
-                            Provider.of<SettingProvider>(context, listen: false)
-                                .changeNotification(false);
-                          },
+                          onTap: () =>
+                              settingViewModel.changeNotification(false),
                         ),
                       ],
                     );
@@ -137,7 +132,7 @@ class _SettingViewState extends State<SettingView> {
             // Haptics
             SettingInkwell(
               name: '진동',
-              value: Provider.of<SettingProvider>(context).haptics ? '켬' : '끔',
+              value: settingViewModel.haptic ? '켬' : '끔',
               onTap: () {
                 showModalBottomSheet(
                   context: context,
@@ -147,18 +142,12 @@ class _SettingViewState extends State<SettingView> {
                         ModalInkwell(
                           title: '진동 켜기',
                           isTop: true,
-                          onTap: () {
-                            Provider.of<SettingProvider>(context, listen: false)
-                                .changeHaptics(true);
-                          },
+                          onTap: () => settingViewModel.changeHaptic(true),
                         ),
                         ModalInkwell(
                           title: '진동 끄기',
                           isBottom: true,
-                          onTap: () {
-                            Provider.of<SettingProvider>(context, listen: false)
-                                .changeHaptics(false);
-                          },
+                          onTap: () => settingViewModel.changeHaptic(false),
                         ),
                       ],
                     );
@@ -170,28 +159,29 @@ class _SettingViewState extends State<SettingView> {
 
             const SizedBox(height: 32),
 
-            // Usage
+            /* 앱 설정 */
+            // 헤더
             const SettingHeader(title: '이용 안내'),
 
-            // Version
+            // 버전
             SettingInkwell(name: '앱 버젼', value: '1.0.0', onTap: () {}),
 
-            // Personal Information
+            // 개인정보 처리방침
             SettingInkwell(name: '개인정보 처리방침', value: '', onTap: () {}),
 
             const SizedBox(height: 32),
 
-            // Others
+            /* 기타 설정 */
+            // 헤더
             const SettingHeader(title: '기타'),
 
-            // Reset data
+            // 데이터 재설정
             // TODO : popup
             SettingInkwell(
-                name: '데이터 재설정',
-                value: '',
-                onTap: () async =>
-                    await Provider.of<SettingProvider>(context, listen: false)
-                        .resetData()),
+              name: '데이터 재설정',
+              value: '',
+              onTap: () async => settingViewModel.resetData(),
+            ),
           ],
         ),
       ),

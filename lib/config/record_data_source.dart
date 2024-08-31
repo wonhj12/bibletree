@@ -52,11 +52,13 @@ class RecordDataSource {
     }
   }
 
-  /// Reset database
-  // Future<void> resetDB() async {
-  //   final db = await dbProvider.database;
-  //   await db.delete('records');
-  //   await db
-  //       .rawUpdate('DELETE FROM sqlite_sequence WHERE name = ?', ['records']);
-  // }
+  /// DB 재설정
+  ///
+  /// 모든 데이터 삭제 및 id 재설정
+  Future<void> resetDB() async {
+    final db = await dbProvider.database;
+    await db.delete('records');
+    await db
+        .rawUpdate('DELETE FROM sqlite_sequence WHERE name = ?', ['records']);
+  }
 }

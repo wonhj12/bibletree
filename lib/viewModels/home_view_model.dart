@@ -29,7 +29,7 @@ class HomeViewModel with ChangeNotifier {
 
   /// 설정 버튼 클릭시 호출되는 함수
   void onPressedSetting() async {
-    await GoRouter.of(context).push('');
+    await GoRouter.of(context).push('/home/setting');
     notifyListeners();
   }
 

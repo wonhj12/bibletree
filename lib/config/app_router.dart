@@ -3,9 +3,11 @@ import 'package:bibletree/model/setting_model.dart';
 import 'package:bibletree/model/user_model.dart';
 import 'package:bibletree/viewModels/home_view_model.dart';
 import 'package:bibletree/viewModels/record_view_model.dart';
+import 'package:bibletree/viewModels/setting_view_model.dart';
 import 'package:bibletree/viewModels/verse_list_view_model.dart';
 import 'package:bibletree/views/home_view.dart';
 import 'package:bibletree/views/record_view.dart';
+import 'package:bibletree/views/setting_view.dart';
 import 'package:bibletree/views/verse_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -63,7 +65,18 @@ class AppRouter {
                         ),
                         child: const RecordView(),
                       ),
-                    )
+                    ),
+                    GoRoute(
+                      path: 'setting',
+                      builder: (context, state) => ChangeNotifierProvider(
+                        create: (context) => SettingViewModel(
+                          userModel: userModel,
+                          settingModel: settingModel,
+                          context: context,
+                        ),
+                        child: const SettingView(),
+                      ),
+                    ),
                   ],
                 ),
               ],
