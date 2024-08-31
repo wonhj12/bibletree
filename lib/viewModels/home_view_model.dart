@@ -45,7 +45,16 @@ class HomeViewModel with ChangeNotifier {
       debugPrint('Record 불러오기 실패: $e');
     }
 
-    if (context.mounted) await GoRouter.of(context).push('/home/record');
+    if (context.mounted) {
+      final isNewRecord = await GoRouter.of(context).push('/home/record');
+      if (isNewRecord is bool && isNewRecord) {
+        canWater = true; // 새로 Record를 추가했을 때에만 true로 설정
+        userModel.canWater = true;
+
+        await _saveUserModel();
+      }
+      notifyListeners();
+    }
   }
 
   /// 나무에 물 줄 때 호출되는 함수
@@ -73,6 +82,15 @@ class HomeViewModel with ChangeNotifier {
     userModel.growth = growth;
     userModel.canWater = canWater;
 
-    LocalDataSource.saveDataToLocal(userModel.toJson(), 'user');
+    await _saveUserModel();
+  }
+
+  /// 사용자 데이터를 로컬 저장소에 저장하는 함수
+  Future<void> _saveUserModel() async {
+    try {
+      LocalDataSource.saveDataToLocal(userModel.toJson(), 'user');
+    } catch (e) {
+      debugPrint('사용자 데이터 저장 실패: $e');
+    }
   }
 }
