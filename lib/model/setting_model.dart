@@ -16,6 +16,26 @@ class SettingModel with ChangeNotifier {
 
   SettingModel();
 
+  /// json 데이터를 모델에 저장
+  void fromJson(Map<String, dynamic> jsonData) {
+    switch (jsonData['theme']) {
+      case 'ThemeMode.system':
+        theme = ThemeMode.system;
+        break;
+      case 'ThemeMode.light':
+        theme = ThemeMode.light;
+        break;
+      case 'ThemeMode.dark':
+        theme = ThemeMode.dark;
+        break;
+      default:
+        theme = ThemeMode.light;
+        break;
+    }
+    notification = jsonData['notification'];
+    haptic = jsonData['haptic'];
+  }
+
   /// 설정 정보 json 변환
   String toJson() {
     return jsonEncode({

@@ -36,11 +36,11 @@ Future<void> initializeData() async {
     }
 
     // 저장된 설정 데이터 불러오기
-    dynamic settingResponse = await LocalDataSource.getLocalData('settings');
+    dynamic settingResponse = await LocalDataSource.getLocalData('setting');
 
     if (settingResponse is Map<String, dynamic>) {
       // 유저 정보가 존재한다면 데이터 불러오기
-      // settingModel.fromJson(settingResponse);
+      settingModel.fromJson(settingResponse);
     }
 
     dynamic recordResponse = await RecordDataSource().getRecordList();
