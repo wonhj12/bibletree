@@ -10,7 +10,13 @@ import 'package:flutter/material.dart';
 /// * `bool haptic`
 class SettingModel with ChangeNotifier {
   /* 설정 관련 변수 */
-  ThemeMode theme = ThemeMode.system; // 앱 테마 : system, light, dark
+  ThemeMode _theme = ThemeMode.system; // 앱 테마 : system, light, dark
+  ThemeMode get theme => _theme;
+  set theme(ThemeMode newTheme) {
+    _theme = newTheme;
+    notifyListeners();
+  }
+
   bool notification = true; // 알림 수신 여부
   bool haptic = true; // 햅틱 진동 여부
 
@@ -50,5 +56,12 @@ class SettingModel with ChangeNotifier {
     theme = ThemeMode.system;
     notification = true;
     haptic = true;
+  }
+
+  @override
+  String toString() {
+    return 'theme: $_theme, '
+        'notification: $notification, '
+        'haptic: $haptic';
   }
 }

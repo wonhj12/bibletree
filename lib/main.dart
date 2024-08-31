@@ -73,43 +73,30 @@ SettingModel settingModel = SettingModel();
 // 라우터
 final _router = AppRouter.getRouter(userModel, recordModel, settingModel);
 
-class BibleTreeApp extends StatelessWidget {
+class BibleTreeApp extends StatefulWidget {
   const BibleTreeApp({super.key});
 
   @override
+  State<BibleTreeApp> createState() => _BibleTreeAppState();
+}
+
+class _BibleTreeAppState extends State<BibleTreeApp> {
+  @override
   Widget build(BuildContext context) {
+    ThemeMode theme = settingModel.theme;
+
+    settingModel.addListener(
+      () => setState(() {
+        theme = settingModel.theme;
+      }),
+    );
+
     return MaterialApp.router(
       theme: CustomThemeData.light,
       darkTheme: CustomThemeData.dark,
-      themeMode: settingModel.theme,
+      themeMode: theme,
       debugShowCheckedModeBanner: false,
       routerConfig: _router,
     );
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return MaterialApp(
-  //     theme: CustomThemeData.light,
-  //     darkTheme: CustomThemeData.dark,
-  //     themeMode: Provider.of<SettingProvider>(context).themeMode,
-  //     home: FutureBuilder(
-  //       // Initialize verse before loading screen
-  //       future: VerseSingleton.instance.loadVerses(),
-  //       builder: (context, snapshot) {
-  //         if (snapshot.hasData) {
-  //           VerseSingleton.instance.list = snapshot.data!;
-  //           return PageView(
-  //             physics: const ClampingScrollPhysics(),
-  //             children: const [HomeView(), VerseListView()],
-  //           );
-  //         } else if (snapshot.hasError) {
-  //           return const CircularProgressIndicator();
-  //         } else {
-  //           return const CircularProgressIndicator();
-  //         }
-  //       },
-  //     ),
-  //   );
-  // }
 }
