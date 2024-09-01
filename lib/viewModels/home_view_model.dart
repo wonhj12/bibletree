@@ -60,23 +60,27 @@ class HomeViewModel with ChangeNotifier {
   /// 나무에 물 줄 때 호출되는 함수
   /// * growth를 1 증가시키고 canWater을 false로 설정한다
   /// * 나무 이름을 아직 설정하지 않았다면 이름 입력 dialog를 띄운다
-  void water() async {
+  void onTapWater() async {
     growth += 1;
     canWater = false;
 
     // 나무 물주기 페이지 이동
-    await GoRouter.of(context).push('');
+    final needName = await GoRouter.of(context).push('/home/water');
 
     // 나무 이름이 아직 정해지지 않았다면 dialog 호출 후 이름 지정
-    if (userModel.treeName == null) {
+    if (userModel.treeName == null && needName is bool && needName) {
       if (context.mounted) {
         String? name = '';
+
+        // 이름 입력 팝업
 
         if (/* name != null && */ name.isNotEmpty) {
           userModel.treeName = name;
         }
       }
     }
+
+    notifyListeners();
 
     // 데이터 저장
     userModel.growth = growth;

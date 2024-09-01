@@ -1,10 +1,10 @@
 import 'dart:ui';
-
-import 'package:bibletree/models/tree_manager.dart';
 import 'package:bibletree/statics/app_statics.dart';
+import 'package:bibletree/viewModels/growth_view_model.dart';
 import 'package:bibletree/views/tree/tree_view.dart';
 import 'package:bibletree/widgets/shaker.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class GrowthView extends StatefulWidget {
   const GrowthView({super.key});
@@ -15,16 +15,18 @@ class GrowthView extends StatefulWidget {
 
 class _GrowthViewState extends State<GrowthView> {
   // Tree related variables
-  final TreeManager _treeManager = TreeManager(); // Tree Manager
+  // final TreeManager _treeManager = TreeManager(); // Tree Manager
 
-  int _count = 3; // Number of taps before closing
-  bool _isShaking = false; // Animation shake
+  // int _count = 3; // Number of taps before closing
+  // bool _isShaking = false; // Animation shake
 
-  final int _shakeDuration = 200; // Shake duration in milliseconds
-  final double _shakeWidth = 15; // Shake width distance
+  // final int _shakeDuration = 200; // Shake duration in milliseconds
+  // final double _shakeWidth = 15; // Shake width distance
 
   @override
   Widget build(BuildContext context) {
+    GrowthViewModel growthViewModel = context.watch<GrowthViewModel>();
+
     return BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
       child: Scaffold(
@@ -34,7 +36,7 @@ class _GrowthViewState extends State<GrowthView> {
           children: [
             // Tree text
             Text(
-              _treeManager.treeDescription(),
+              growthViewModel.treeDescription(),
               style: const TextStyle(fontSize: AppStatics.body),
             ),
 
@@ -42,9 +44,10 @@ class _GrowthViewState extends State<GrowthView> {
 
             // Tree
             GestureDetector(
-              onTap: () {
-                tapTree();
-              },
+              onTap: () => growthViewModel.onTapTree(),
+              // {
+              //   tapTree();
+              // },
               child: Shaker(
                 Center(
                   child: Container(
@@ -59,11 +62,13 @@ class _GrowthViewState extends State<GrowthView> {
                         image: AssetImage('assets/images/base.png'),
                       ),
                     ),
-                    child: TreeView(treeName: _treeManager.getCurTree()),
+                    child: TreeView(
+                      treeName: growthViewModel.userModel.getCurTree(),
+                    ),
                   ),
                 ),
-                _isShaking ? _shakeDuration : 1,
-                _shakeWidth,
+                growthViewModel.isShaking ? growthViewModel.shakeDuration : 1,
+                growthViewModel.shakeWidth,
               ),
             ),
           ],
@@ -73,26 +78,26 @@ class _GrowthViewState extends State<GrowthView> {
   }
 
   /// Tap tree 3 times to close
-  void tapTree() {
-    if (_count > 0) {
-      setState(() {
-        _count -= 1;
-        _isShaking = true;
-      });
-      Future.delayed(Duration(milliseconds: _shakeDuration), () {
-        setState(() {
-          _isShaking = false;
-        });
-      });
+  // void tapTree() {
+  //   if (_count > 0) {
+  //     setState(() {
+  //       _count -= 1;
+  //       _isShaking = true;
+  //     });
+  //     Future.delayed(Duration(milliseconds: _shakeDuration), () {
+  //       setState(() {
+  //         _isShaking = false;
+  //       });
+  //     });
 
-      if (_count == 0) {
-        Future.delayed(Duration(milliseconds: _shakeDuration)).then(
-          (value) async {
-            if (!mounted) return;
-            Navigator.pop(context);
-          },
-        );
-      }
-    }
-  }
+  //     if (_count == 0) {
+  //       Future.delayed(Duration(milliseconds: _shakeDuration)).then(
+  //         (value) async {
+  //           if (!mounted) return;
+  //           Navigator.pop(context);
+  //         },
+  //       );
+  //     }
+  //   }
+  // }
 }

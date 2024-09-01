@@ -6,13 +6,18 @@ class RecordDataSource {
 
   /// Get list of saved RecordItems from database
   Future<List<Map<String, dynamic>>> getRecordList() async {
-    final db = await dbProvider.database;
-    List<Map<String, dynamic>> result = await db.query(
-      'records',
-      columns: ['id', 'verseId', 'like'],
-      orderBy: 'id DESC',
-    );
-    return result;
+    try {
+      final db = await dbProvider.database;
+      List<Map<String, dynamic>> result = await db.query(
+        'records',
+        columns: ['id', 'verseId', 'like'],
+        orderBy: 'id DESC',
+      );
+      return result;
+    } catch (e) {
+      debugPrint('getRecordList 실패: $e');
+      throw ErrorDescription('getRecordList failed');
+    }
   }
 
   /// Id에 해당하는 Record 불러오기

@@ -162,7 +162,7 @@ class _HomeViewState extends State<HomeView> {
                   // Water
                   if (homeViewModel.canWater)
                     GestureDetector(
-                      onTap: () => homeViewModel.water(),
+                      onTap: () => homeViewModel.onTapWater(),
                       // {
                       //   // Increment tree growth
                       //   growTree();

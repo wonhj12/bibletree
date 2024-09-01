@@ -28,7 +28,6 @@ Future<void> initializeData() async {
   try {
     // 저장된 유저 데이터 불러오기
     dynamic userResponse = await LocalDataSource.getLocalData('user');
-
     if (userResponse is Map<String, dynamic>) {
       // 유저 정보가 존재한다면 데이터 불러오기
       userModel.fromJson(userResponse);
@@ -37,7 +36,6 @@ Future<void> initializeData() async {
 
     // 저장된 설정 데이터 불러오기
     dynamic settingResponse = await LocalDataSource.getLocalData('setting');
-
     if (settingResponse is Map<String, dynamic>) {
       // 유저 정보가 존재한다면 데이터 불러오기
       settingModel.fromJson(settingResponse);
@@ -60,9 +58,9 @@ Future<void> initializeData() async {
 /// 사용자 데이터 초기화
 Future<void> initUser() async {
   final lastLogin = DateTime.fromMillisecondsSinceEpoch(userModel.lastLogin!);
-  if (!DateUtils.isSameDay(lastLogin, DateTime.now())) {
-    userModel.verseId += 1;
-  }
+  // if (!DateUtils.isSameDay(lastLogin, DateTime.now())) {
+  userModel.verseId += 1;
+  // }
 }
 
 // Models
