@@ -93,11 +93,7 @@ class _RecordViewState extends State<RecordView> {
                 // Verse view
                 Container(
                   margin: const EdgeInsets.all(24),
-                  child: const VerseCard(
-                    verse: 'verse',
-                    book: 'book',
-                    chapter: 'chapter',
-                  ),
+                  child: VerseCard(verse: recordViewModel.verse),
                 ),
 
                 // Input view
@@ -107,11 +103,6 @@ class _RecordViewState extends State<RecordView> {
                     thought: recordViewModel.recordModel.thought,
                     onTextChanged: (text) =>
                         recordViewModel.onTextChanged(text),
-                    // {
-                    //   setState(() {
-                    //     _thought = text;
-                    //   });
-                    // },
                   ),
                 ),
 

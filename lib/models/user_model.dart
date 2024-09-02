@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
 /// ### 사용자 데이터를 저장하고 관리하는 클래스
@@ -12,9 +11,6 @@ import 'package:flutter/material.dart';
 ///
 /// **말씀 관련 변수**
 /// * `int verseId`
-/// * `String? book`
-/// * `String? chapter`
-/// * `String? verse`
 ///
 /// **기타 사용자 관련 변수**
 /// * `int? lastLogin`
@@ -26,18 +22,12 @@ class UserModel with ChangeNotifier {
 
   /* 말씀 관련 변수 */
   int verseId = 0; // 오늘의 말씀 id
-  String? book; // 책
-  String? chapter; // 장:절
-  String? verse; // 말씀
 
   /* 기타 사용자 관련 변수 */
   int? lastLogin; // 마지막 로그인 시점
 
   UserModel({
     this.treeName,
-    this.book,
-    this.chapter,
-    this.verse,
     this.lastLogin,
   });
 
@@ -94,9 +84,6 @@ class UserModel with ChangeNotifier {
     growth = 0;
     canWater = false;
     verseId = 0;
-    book = null;
-    chapter = null;
-    verse = null;
     lastLogin = null;
   }
 

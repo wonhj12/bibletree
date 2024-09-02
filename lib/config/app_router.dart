@@ -64,6 +64,7 @@ class AppRouter {
                       path: 'record',
                       builder: (context, state) => ChangeNotifierProvider(
                         create: (context) => RecordViewModel(
+                          userModel: userModel,
                           recordModel: recordModel,
                           context: context,
                         ),
@@ -118,6 +119,7 @@ class AppRouter {
                       path: 'record',
                       builder: (context, state) => ChangeNotifierProvider(
                         create: (context) => RecordViewModel(
+                          userModel: userModel,
                           recordModel: recordModel,
                           context: context,
                         ),

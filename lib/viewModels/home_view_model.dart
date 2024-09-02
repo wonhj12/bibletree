@@ -2,6 +2,7 @@ import 'package:bibletree/config/local_data_source.dart';
 import 'package:bibletree/config/record_data_source.dart';
 import 'package:bibletree/models/record_model.dart';
 import 'package:bibletree/models/user_model.dart';
+import 'package:bibletree/models/verse_model.dart';
 import 'package:bibletree/widgets/name_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -19,12 +20,12 @@ class HomeViewModel with ChangeNotifier {
     _initialize();
   }
 
+  Verse? todayVerse;
   bool canWater = false;
   int growth = 0;
 
-  // 나무 이름 관련
+  // 나무 이름 관련 변수
   String? treeName;
-  String? nameErrorText;
   TextEditingController nameController = TextEditingController();
 
   // 데이터 초기화
@@ -32,6 +33,8 @@ class HomeViewModel with ChangeNotifier {
     treeName = userModel.treeName;
     canWater = userModel.canWater;
     growth = userModel.growth;
+
+    todayVerse = VerseModel.instance.list[userModel.verseId];
   }
 
   /// 설정 버튼 클릭시 호출되는 함수
@@ -42,6 +45,9 @@ class HomeViewModel with ChangeNotifier {
 
   /// 말씀 카드 클릭시 호출되는 함수
   void onTapVerseCard() async {
+    // 작성된 Record가 이미 있으면 해당 Record 불러오기
+    // Record는 id가 1부터 시작하기 때문에 verseId보다 1 높음
+    // 만약 Record가 없다면 null이 넘어오기 때문에 if문이 실행되지 않음
     try {
       final response =
           await RecordDataSource().getRecordItem(userModel.verseId + 1);
@@ -53,6 +59,8 @@ class HomeViewModel with ChangeNotifier {
     }
 
     if (context.mounted) {
+      // recordModel.verseId를 오늘 말씀 id로 초기화
+      recordModel.verseId = userModel.verseId;
       final isNewRecord = await GoRouter.of(context).push('/home/record');
       if (isNewRecord is bool && isNewRecord) {
         canWater = true; // 새로 Record를 추가했을 때에만 true로 설정
@@ -78,24 +86,12 @@ class HomeViewModel with ChangeNotifier {
     if (userModel.treeName == null && needName is bool && needName) {
       if (context.mounted) {
         // 이름 입력 팝업
-        await showNameDialog(
-          context,
-          nameController,
-        );
+        await showNameDialog(context, nameController);
 
         treeName = nameController.text;
         userModel.treeName = treeName;
         _saveUserModel();
       }
-      // if (context.mounted) {
-      //   String? name = '';
-
-      //   // 이름 입력 팝업
-
-      //   if (/* name != null && */ name.isNotEmpty) {
-      //     userModel.treeName = name;
-      //   }
-      // }
     }
 
     notifyListeners();

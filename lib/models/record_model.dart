@@ -17,11 +17,12 @@ class RecordModel with ChangeNotifier {
   String? thought; // 느낀 점
   DateTime? createdAt; // 등록 날짜
 
+  List<Map<String, dynamic>> _records = [];
+
   /// 전체 Record 데이터
   /// * `int id`
   /// * `int verseId`
   /// * `bool like`
-  List<Map<String, dynamic>> _records = [];
   List<Map<String, dynamic>> get records => _records;
   set records(List<Map<String, dynamic>> newRecords) {
     _records = newRecords;

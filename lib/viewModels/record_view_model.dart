@@ -1,14 +1,20 @@
 import 'package:bibletree/config/record_data_source.dart';
-import 'package:bibletree/main.dart';
 import 'package:bibletree/models/record_model.dart';
+import 'package:bibletree/models/user_model.dart';
+import 'package:bibletree/models/verse_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class RecordViewModel with ChangeNotifier {
+  UserModel userModel;
   RecordModel recordModel;
   BuildContext context;
 
-  RecordViewModel({required this.recordModel, required this.context}) {
+  RecordViewModel({
+    required this.userModel,
+    required this.recordModel,
+    required this.context,
+  }) {
     _initialize();
   }
 
@@ -16,10 +22,14 @@ class RecordViewModel with ChangeNotifier {
   String? thought;
   String? _initThought; // 느낀점 수정 여부 확인을 위한 변수
 
+  late Verse verse;
+
   // 데이터 초기화
   void _initialize() {
     like = recordModel.like ?? false;
     _initThought = thought;
+
+    verse = VerseModel.instance.list[recordModel.verseId!];
   }
 
   /// 좋아요 버튼 클릭시 호출되는 함수

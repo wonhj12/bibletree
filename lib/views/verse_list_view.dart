@@ -1,4 +1,5 @@
 import 'package:bibletree/config/palette.dart';
+import 'package:bibletree/models/verse_model.dart';
 import 'package:bibletree/viewModels/verse_list_view_model.dart';
 import 'package:bibletree/widgets/verse_list_card.dart';
 import 'package:flutter/material.dart';
@@ -40,18 +41,18 @@ class _VerseListViewState extends State<VerseListView> {
       ),
       body: SafeArea(
         child: verseListViewModel.records.isEmpty
-            ? const Text(
-                '묵상한 말씀이 없습니다',
-                style: TextStyle(fontSize: Palette.body),
+            ? const Center(
+                child: Text(
+                  '묵상한 말씀이 없습니다',
+                  style: TextStyle(fontSize: Palette.body),
+                ),
               )
             : ImplicitlyAnimatedList(
                 itemData: verseListViewModel.records,
                 itemBuilder: (_, record) => Container(
                   margin: const EdgeInsets.fromLTRB(24, 6, 24, 6),
                   child: VerseListCard(
-                    verse: 'verse',
-                    book: 'book',
-                    chapter: 'chapter',
+                    verse: VerseModel.instance.list[record['verseId']],
                     onTap: () =>
                         verseListViewModel.onTapVerseListCard(record['id']),
                   ),

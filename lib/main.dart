@@ -5,25 +5,18 @@ import 'package:bibletree/models/record_model.dart';
 import 'package:bibletree/models/setting_model.dart';
 import 'package:bibletree/models/user_model.dart';
 import 'package:bibletree/config/custom_theme_data.dart';
+import 'package:bibletree/models/verse_model.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  VerseModel.instance; // 말씀 데이터 로딩
   await initializeData();
-  // // Initialize singletons
-  // VerseSingleton.instance;
-
-  // runApp(
-  //   ChangeNotifierProvider(
-  //     create: (context) => SettingProvider(),
-  //     child: const MainApp(),
-  //   ),
-  // );
 
   runApp(const BibleTreeApp());
 }
 
-/// 사용자, 설정 데이터 불러오기 및 초기화
+/// 사용자, 설정, Record 데이터 불러오기 및 초기화
 Future<void> initializeData() async {
   try {
     // 저장된 유저 데이터 불러오기
@@ -37,12 +30,12 @@ Future<void> initializeData() async {
     // 저장된 설정 데이터 불러오기
     dynamic settingResponse = await LocalDataSource.getLocalData('setting');
     if (settingResponse is Map<String, dynamic>) {
-      // 유저 정보가 존재한다면 데이터 불러오기
+      // 설정 정보가 존재한다면 데이터 불러오기
       settingModel.fromJson(settingResponse);
     }
 
+    // Record 데이터 불러오기
     dynamic recordResponse = await RecordDataSource().getRecordList();
-
     if (recordResponse is List<Map<String, dynamic>>) {
       recordModel.records = recordResponse;
     }
@@ -83,6 +76,7 @@ class _BibleTreeAppState extends State<BibleTreeApp> {
   Widget build(BuildContext context) {
     ThemeMode theme = settingModel.theme;
 
+    // 테마 변경을 위한 listener
     settingModel.addListener(
       () => setState(() {
         theme = settingModel.theme;

@@ -1,17 +1,15 @@
 import 'package:bibletree/config/palette.dart';
+import 'package:bibletree/models/verse_model.dart';
 import 'package:flutter/material.dart';
 
 /// 말씀 카드 위젯
 /// * `Verse verse`
 class VerseCard extends StatelessWidget {
-  final String verse;
-  final String book;
-  final String chapter;
+  final Verse verse;
+
   const VerseCard({
     super.key,
     required this.verse,
-    required this.book,
-    required this.chapter,
   });
 
   @override
@@ -21,7 +19,7 @@ class VerseCard extends StatelessWidget {
       children: <Widget>[
         // 말씀
         Text(
-          verse,
+          verse.verse,
           style: const TextStyle(
             fontSize: Palette.title,
             fontWeight: Palette.medium,
@@ -32,7 +30,7 @@ class VerseCard extends StatelessWidget {
 
         // 장:절
         Text(
-          '$book $chapter',
+          '${verse.book} ${verse.chapter}',
           style: TextStyle(
             fontSize: Palette.body,
             color: Theme.of(context).colorScheme.onSecondary,

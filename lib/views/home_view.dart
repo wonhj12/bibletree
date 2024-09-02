@@ -83,9 +83,6 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     HomeViewModel homeViewModel = context.watch<HomeViewModel>();
-    // Verse todayVerse =
-    //     Verse(id: 0, verse: 'verse', book: 'book', chapter: 'chapter');
-    //VerseSingleton.instance.list[userModel.verseId];
 
     return Container(
       // BG image
@@ -140,11 +137,7 @@ class _HomeViewState extends State<HomeView> {
                 // },
                 child: Container(
                   margin: const EdgeInsets.fromLTRB(16, 54, 16, 0),
-                  child: const VerseCard(
-                    verse: 'verse',
-                    book: 'book',
-                    chapter: 'chapter',
-                  ),
+                  child: VerseCard(verse: homeViewModel.todayVerse!),
                 ),
               ),
 
