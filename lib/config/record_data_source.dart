@@ -13,7 +13,12 @@ class RecordDataSource {
         columns: ['id', 'verseId', 'like'],
         orderBy: 'id DESC',
       );
-      return result;
+
+      return List<Map<String, dynamic>>.generate(
+        result.length,
+        (index) => Map<String, dynamic>.from(result[index]),
+        growable: true,
+      );
     } catch (e) {
       debugPrint('getRecordList 실패: $e');
       throw ErrorDescription('getRecordList failed');

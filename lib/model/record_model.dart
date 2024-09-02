@@ -74,6 +74,12 @@ class RecordModel with ChangeNotifier {
     notifyListeners();
   }
 
+  /// 좋아요 수정시 records 리스트에도 반영하는 함수
+  void updateLike() {
+    _records[_records.length - id!]['like'] = like! ? 1 : 0;
+    notifyListeners();
+  }
+
   // 현재 Record 정보만 삭제
   void _resetRecord() {
     id = null;

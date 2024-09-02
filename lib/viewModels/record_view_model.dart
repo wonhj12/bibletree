@@ -31,6 +31,7 @@ class RecordViewModel with ChangeNotifier {
     if (recordModel.id != null) {
       try {
         await RecordDataSource().updateRecord(recordModel.toJsonDatabase());
+        recordModel.updateLike();
       } catch (e) {
         debugPrint('저장 실패: $e');
       }
