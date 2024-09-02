@@ -70,7 +70,7 @@ class RecordModel with ChangeNotifier {
   /// `id`가 주어지면 데이터 추가, 없으면 업데이트
   void addRecord(int id) {
     final data = {'id': id, 'verseId': verseId, 'like': like};
-    _records.add(data); // 데이터 추가
+    _records.insert(0, data); // 데이터 추가
     notifyListeners();
   }
 
