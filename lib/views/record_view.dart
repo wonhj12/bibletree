@@ -1,8 +1,4 @@
-// import 'package:bibletree/bloc/record_bloc.dart';
-// import 'package:bibletree/dao/record_dao.dart';
-// import 'package:bibletree/repositories/record_repository.dart';
-import 'package:bibletree/models/verse.dart';
-import 'package:bibletree/statics/app_statics.dart';
+import 'package:bibletree/config/palette.dart';
 import 'package:bibletree/viewModels/record_view_model.dart';
 import 'package:bibletree/widgets/custom_text_input.dart';
 import 'package:bibletree/widgets/verse_card.dart';
@@ -97,12 +93,11 @@ class _RecordViewState extends State<RecordView> {
                 // Verse view
                 Container(
                   margin: const EdgeInsets.all(24),
-                  child: VerseCard(Verse(
-                    id: 0,
+                  child: const VerseCard(
+                    verse: 'verse',
                     book: 'book',
                     chapter: 'chapter',
-                    verse: 'verse',
-                  )),
+                  ),
                 ),
 
                 // Input view
@@ -129,7 +124,7 @@ class _RecordViewState extends State<RecordView> {
                   child: Text(
                     '${DateFormat('yyyy.MM.dd').format(recordViewModel.recordModel.createdAt ?? DateTime.now())} 말씀묵상',
                     style: TextStyle(
-                      fontSize: AppStatics.footnote,
+                      fontSize: Palette.footnote,
                       color: Theme.of(context).colorScheme.onSecondary,
                     ),
                   ),

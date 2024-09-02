@@ -1,4 +1,4 @@
-import 'package:bibletree/model/user_model.dart';
+import 'package:bibletree/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

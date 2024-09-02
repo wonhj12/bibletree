@@ -1,10 +1,10 @@
 import 'package:bibletree/config/app_router.dart';
 import 'package:bibletree/config/local_data_source.dart';
 import 'package:bibletree/config/record_data_source.dart';
-import 'package:bibletree/model/record_model.dart';
-import 'package:bibletree/model/setting_model.dart';
-import 'package:bibletree/model/user_model.dart';
-import 'package:bibletree/statics/custom_theme_data.dart';
+import 'package:bibletree/models/record_model.dart';
+import 'package:bibletree/models/setting_model.dart';
+import 'package:bibletree/models/user_model.dart';
+import 'package:bibletree/config/custom_theme_data.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {

@@ -1,7 +1,7 @@
 import 'package:bibletree/config/local_data_source.dart';
 import 'package:bibletree/config/record_data_source.dart';
-import 'package:bibletree/model/record_model.dart';
-import 'package:bibletree/model/user_model.dart';
+import 'package:bibletree/models/record_model.dart';
+import 'package:bibletree/models/user_model.dart';
 import 'package:bibletree/widgets/name_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

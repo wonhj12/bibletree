@@ -1,6 +1,6 @@
-import 'package:bibletree/model/record_model.dart';
-import 'package:bibletree/model/setting_model.dart';
-import 'package:bibletree/model/user_model.dart';
+import 'package:bibletree/models/record_model.dart';
+import 'package:bibletree/models/setting_model.dart';
+import 'package:bibletree/models/user_model.dart';
 import 'package:bibletree/viewModels/growth_view_model.dart';
 import 'package:bibletree/viewModels/home_view_model.dart';
 import 'package:bibletree/viewModels/record_view_model.dart';

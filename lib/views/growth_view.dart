@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:bibletree/statics/app_statics.dart';
+import 'package:bibletree/config/palette.dart';
 import 'package:bibletree/viewModels/growth_view_model.dart';
 import 'package:bibletree/widgets/tree_image.dart';
 import 'package:bibletree/widgets/shaker.dart';
@@ -37,7 +37,7 @@ class _GrowthViewState extends State<GrowthView> {
             // Tree text
             Text(
               growthViewModel.treeDescription(),
-              style: const TextStyle(fontSize: AppStatics.body),
+              style: const TextStyle(fontSize: Palette.body),
             ),
 
             const SizedBox(height: 16),
@@ -54,7 +54,7 @@ class _GrowthViewState extends State<GrowthView> {
                     width: MediaQuery.of(context).size.width * 0.8,
                     height: MediaQuery.of(context).size.width * 0.8,
                     decoration: const BoxDecoration(
-                      color: AppStatics.green200,
+                      color: Palette.green200,
                       shape: BoxShape.circle,
                       image: DecorationImage(
                         alignment: Alignment(0, 3.8),

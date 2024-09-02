@@ -1,4 +1,4 @@
-import 'package:bibletree/statics/app_statics.dart';
+import 'package:bibletree/config/palette.dart';
 import 'package:flutter/material.dart';
 
 /// `CustomModal`에서 버튼으로 사용되는 Inkwell 위젯
@@ -41,8 +41,8 @@ class ModalInkwell extends StatelessWidget {
             child: Text(
               title,
               style: const TextStyle(
-                fontSize: AppStatics.body,
-                fontWeight: AppStatics.regular,
+                fontSize: Palette.body,
+                fontWeight: Palette.regular,
               ),
             ),
           ),

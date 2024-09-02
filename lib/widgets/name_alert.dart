@@ -27,7 +27,7 @@
 //   }
 // }
 
-import 'package:bibletree/statics/app_statics.dart';
+import 'package:bibletree/config/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -54,7 +54,7 @@ Future<void> showNameDialog(
           children: [
             const Text(
               '이름을 지어주세요!',
-              style: TextStyle(fontSize: AppStatics.body),
+              style: TextStyle(fontSize: Palette.body),
             ),
             const SizedBox(height: 4),
 

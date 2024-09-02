@@ -1,4 +1,4 @@
-import 'package:bibletree/statics/app_statics.dart';
+import 'package:bibletree/config/palette.dart';
 import 'package:flutter/widgets.dart';
 
 /// SettingView에서 사용되는 헤더 위젯
@@ -16,8 +16,8 @@ class SettingHeader extends StatelessWidget {
       child: Text(
         title,
         style: const TextStyle(
-          fontSize: AppStatics.body,
-          fontWeight: AppStatics.medium,
+          fontSize: Palette.body,
+          fontWeight: Palette.medium,
         ),
       ),
     );

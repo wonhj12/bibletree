@@ -1,4 +1,3 @@
-import 'package:bibletree/models/verse.dart';
 import 'package:bibletree/viewModels/home_view_model.dart';
 import 'package:bibletree/widgets/tree_image.dart';
 import 'package:bibletree/widgets/water_image.dart';
@@ -84,8 +83,8 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     HomeViewModel homeViewModel = context.watch<HomeViewModel>();
-    Verse todayVerse =
-        Verse(id: 0, verse: 'verse', book: 'book', chapter: 'chapter');
+    // Verse todayVerse =
+    //     Verse(id: 0, verse: 'verse', book: 'book', chapter: 'chapter');
     //VerseSingleton.instance.list[userModel.verseId];
 
     return Container(
@@ -141,7 +140,11 @@ class _HomeViewState extends State<HomeView> {
                 // },
                 child: Container(
                   margin: const EdgeInsets.fromLTRB(16, 54, 16, 0),
-                  child: VerseCard(todayVerse),
+                  child: const VerseCard(
+                    verse: 'verse',
+                    book: 'book',
+                    chapter: 'chapter',
+                  ),
                 ),
               ),
 

@@ -1,13 +1,18 @@
-import 'package:bibletree/models/verse.dart';
-import 'package:bibletree/statics/app_statics.dart';
+import 'package:bibletree/config/palette.dart';
 import 'package:flutter/material.dart';
 
 /// 말씀 카드 위젯
 /// * `Verse verse`
 class VerseCard extends StatelessWidget {
-  final Verse verse;
-
-  const VerseCard(this.verse, {super.key});
+  final String verse;
+  final String book;
+  final String chapter;
+  const VerseCard({
+    super.key,
+    required this.verse,
+    required this.book,
+    required this.chapter,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +21,10 @@ class VerseCard extends StatelessWidget {
       children: <Widget>[
         // 말씀
         Text(
-          verse.verse,
+          verse,
           style: const TextStyle(
-            fontSize: AppStatics.title,
-            fontWeight: AppStatics.medium,
+            fontSize: Palette.title,
+            fontWeight: Palette.medium,
           ),
           textAlign: TextAlign.justify,
         ),
@@ -27,9 +32,9 @@ class VerseCard extends StatelessWidget {
 
         // 장:절
         Text(
-          '${verse.book} ${verse.chapter}',
+          '$book $chapter',
           style: TextStyle(
-            fontSize: AppStatics.body,
+            fontSize: Palette.body,
             color: Theme.of(context).colorScheme.onSecondary,
           ),
         ),

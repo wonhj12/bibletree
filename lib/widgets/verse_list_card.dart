@@ -1,15 +1,21 @@
-import 'package:bibletree/statics/app_statics.dart';
-import 'package:bibletree/models/verse.dart';
+import 'package:bibletree/config/palette.dart';
 import 'package:flutter/material.dart';
 
 /// VerseListView에서 사용하는 말씀 리스트 카드 위젯
 /// * `Verse verse`
 /// * `Function()? onTap`
 class VerseListCard extends StatelessWidget {
-  final Verse verse;
+  final String verse;
+  final String book;
+  final String chapter;
   final Function()? onTap;
-
-  const VerseListCard({super.key, required this.verse, required this.onTap});
+  const VerseListCard({
+    super.key,
+    required this.verse,
+    required this.book,
+    required this.chapter,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +34,15 @@ class VerseListCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              verse.verse,
-              style: const TextStyle(fontSize: AppStatics.body),
+              verse,
+              style: const TextStyle(fontSize: Palette.body),
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 4),
             Text(
-              '${verse.book} ${verse.chapter}',
+              '$book $chapter',
               style: TextStyle(
-                fontSize: AppStatics.footnote,
+                fontSize: Palette.footnote,
                 color: Theme.of(context).colorScheme.onSecondary,
               ),
             ),

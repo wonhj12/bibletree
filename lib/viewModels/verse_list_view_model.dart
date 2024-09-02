@@ -1,5 +1,5 @@
 import 'package:bibletree/config/record_data_source.dart';
-import 'package:bibletree/model/record_model.dart';
+import 'package:bibletree/models/record_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

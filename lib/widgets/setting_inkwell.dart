@@ -1,4 +1,4 @@
-import 'package:bibletree/statics/app_statics.dart';
+import 'package:bibletree/config/palette.dart';
 import 'package:flutter/material.dart';
 
 /// SettingView에서 설정 메뉴로 사용되는 위젯
@@ -30,15 +30,15 @@ class SettingInkwell extends StatelessWidget {
             Text(
               name,
               style: const TextStyle(
-                fontSize: AppStatics.body,
-                fontWeight: AppStatics.regular,
+                fontSize: Palette.body,
+                fontWeight: Palette.regular,
               ),
             ),
             Text(
               value,
               style: TextStyle(
-                fontSize: AppStatics.body,
-                fontWeight: AppStatics.regular,
+                fontSize: Palette.body,
+                fontWeight: Palette.regular,
                 color: Theme.of(context).colorScheme.onSecondary,
               ),
             ),

@@ -1,6 +1,6 @@
 import "package:flutter/widgets.dart";
 
-class AppStatics {
+class Palette {
   // Basic colors
   static const Color primary = Color(0xFF000000);
   static const Color secondary = Color.fromARGB(255, 100, 100, 100);

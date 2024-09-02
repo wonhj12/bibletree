@@ -1,14 +1,4 @@
-// import 'package:bibletree/bloc/record_bloc.dart';
-// import 'package:bibletree/config/app_router.dart';
-// import 'package:bibletree/dao/record_dao.dart';
-// import 'package:bibletree/repositories/record_repository.dart';
-// import 'package:bibletree/views/empty_view.dart';
-// import 'package:implicitly_animated_list/implicitly_animated_list.dart';
-// import 'package:bibletree/main.dart';
-// import 'package:bibletree/models/verse_singleton.dart';
-// import 'package:bibletree/models/record_item.dart';
-import 'package:bibletree/models/verse.dart';
-import 'package:bibletree/statics/app_statics.dart';
+import 'package:bibletree/config/palette.dart';
 import 'package:bibletree/viewModels/verse_list_view_model.dart';
 import 'package:bibletree/widgets/verse_list_card.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +15,7 @@ class VerseListView extends StatefulWidget {
 class _VerseListViewState extends State<VerseListView> {
   // Data related variables
   // final RecordBloc _recordBloc = RecordBloc(RecordRepository(RecordDao()));
-  Verse verse = Verse(id: 0, verse: 'verse', book: 'book', chapter: 'chapter');
+  // Verse verse = Verse(id: 0, verse: 'verse', book: 'book', chapter: 'chapter');
 
   @override
   Widget build(BuildContext context) {
@@ -52,14 +42,16 @@ class _VerseListViewState extends State<VerseListView> {
         child: verseListViewModel.records.isEmpty
             ? const Text(
                 '묵상한 말씀이 없습니다',
-                style: TextStyle(fontSize: AppStatics.body),
+                style: TextStyle(fontSize: Palette.body),
               )
             : ImplicitlyAnimatedList(
                 itemData: verseListViewModel.records,
                 itemBuilder: (_, record) => Container(
                   margin: const EdgeInsets.fromLTRB(24, 6, 24, 6),
                   child: VerseListCard(
-                    verse: verse,
+                    verse: 'verse',
+                    book: 'book',
+                    chapter: 'chapter',
                     onTap: () =>
                         verseListViewModel.onTapVerseListCard(record['id']),
                   ),

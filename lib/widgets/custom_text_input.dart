@@ -1,4 +1,4 @@
-import 'package:bibletree/statics/app_statics.dart';
+import 'package:bibletree/config/palette.dart';
 import 'package:flutter/material.dart';
 
 /// 느낀 점 입력 위젯
@@ -39,8 +39,8 @@ class _CustomTextInputState extends State<CustomTextInput> {
         const Text(
           '어떤 메시지가 있었나요?',
           style: TextStyle(
-            fontSize: AppStatics.body,
-            fontWeight: AppStatics.medium,
+            fontSize: Palette.body,
+            fontWeight: Palette.medium,
           ),
         ),
         const SizedBox(height: 8),
@@ -49,11 +49,11 @@ class _CustomTextInputState extends State<CustomTextInput> {
           decoration: InputDecoration(
             hintText: '말씀을 묵상하고 느낀 점을 적어주세요.',
             hintStyle: TextStyle(
-              fontSize: AppStatics.body,
+              fontSize: Palette.body,
               color: Theme.of(context).colorScheme.onSecondary,
             ),
             counterStyle: TextStyle(
-              fontSize: AppStatics.footnote,
+              fontSize: Palette.footnote,
               color: Theme.of(context).colorScheme.onSecondary,
             ),
             filled: true,
@@ -64,7 +64,7 @@ class _CustomTextInputState extends State<CustomTextInput> {
               borderRadius: BorderRadius.circular(10),
             ),
           ),
-          style: const TextStyle(fontSize: AppStatics.body),
+          style: const TextStyle(fontSize: Palette.body),
           maxLength: 255,
           maxLines: 10,
           onChanged: (text) {
