@@ -2,6 +2,7 @@ import 'package:bibletree/config/local_data_source.dart';
 import 'package:bibletree/config/record_data_source.dart';
 import 'package:bibletree/model/record_model.dart';
 import 'package:bibletree/model/user_model.dart';
+import 'package:bibletree/widgets/name_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -21,8 +22,14 @@ class HomeViewModel with ChangeNotifier {
   bool canWater = false;
   int growth = 0;
 
+  // 나무 이름 관련
+  String? treeName;
+  String? nameErrorText;
+  TextEditingController nameController = TextEditingController();
+
   // 데이터 초기화
   void _initialize() {
+    treeName = userModel.treeName;
     canWater = userModel.canWater;
     growth = userModel.growth;
   }
@@ -70,14 +77,23 @@ class HomeViewModel with ChangeNotifier {
     // 나무 이름이 아직 정해지지 않았다면 dialog 호출 후 이름 지정
     if (userModel.treeName == null && needName is bool && needName) {
       if (context.mounted) {
-        String? name = '';
+        await showNameDialog(
+          context,
+          nameController,
+        );
 
-        // 이름 입력 팝업
-
-        if (/* name != null && */ name.isNotEmpty) {
-          userModel.treeName = name;
-        }
+        treeName = nameController.text;
+        _saveUserModel();
       }
+      // if (context.mounted) {
+      //   String? name = '';
+
+      //   // 이름 입력 팝업
+
+      //   if (/* name != null && */ name.isNotEmpty) {
+      //     userModel.treeName = name;
+      //   }
+      // }
     }
 
     notifyListeners();
