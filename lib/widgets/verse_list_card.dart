@@ -2,6 +2,9 @@ import 'package:bibletree/statics/app_statics.dart';
 import 'package:bibletree/models/verse.dart';
 import 'package:flutter/material.dart';
 
+/// VerseListView에서 사용하는 말씀 리스트 카드 위젯
+/// * `Verse verse`
+/// * `Function()? onTap`
 class VerseListCard extends StatelessWidget {
   final Verse verse;
   final Function()? onTap;

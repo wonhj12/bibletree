@@ -1,8 +1,12 @@
 import 'package:bibletree/widgets/modal_inkwell.dart';
 import 'package:flutter/material.dart';
 
+/// 하단에서 올라오는 모달
+/// * `List<ModalInkwell> buttons` : 버튼으로 사용되는 ModalInkwell 위젯 리스트
+///
+/// 버튼 하단에 취소 버튼이 적용됨
 class CustomModal extends StatelessWidget {
-  final List<Widget> buttons;
+  final List<ModalInkwell> buttons;
 
   const CustomModal({super.key, required this.buttons});
 

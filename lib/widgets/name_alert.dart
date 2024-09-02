@@ -31,6 +31,12 @@ import 'package:bibletree/statics/app_statics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+/// 이름 입력 팝업을 띄우는 위젯
+/// * `BuildContext context`
+/// * `TextEditingController controller`
+///
+/// 아무것도 입력하지 않고 확인 버튼을 클릭하면 에러 메세지를 적용
+/// <br /> 텍스트를 입력하면 팝업을 종료
 Future<void> showNameDialog(
   BuildContext context,
   TextEditingController controller,
@@ -66,7 +72,7 @@ Future<void> showNameDialog(
             ),
             TextButton(
               onPressed: () {
-                if (controller.text.isEmpty) {
+                if (controller.text.trim().isEmpty) {
                   setState(() {
                     errorText = '이름을 입력하세요';
                   });

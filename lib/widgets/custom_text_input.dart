@@ -1,17 +1,20 @@
 import 'package:bibletree/statics/app_statics.dart';
 import 'package:flutter/material.dart';
 
-class TextInputView extends StatefulWidget {
+/// 느낀 점 입력 위젯
+/// * `String? thought` : 이미 작성한 느낀 점이 있을 때 표시할 텍스트
+/// * `Function(String) onTextChanged`
+class CustomTextInput extends StatefulWidget {
   final String? thought;
   final Function(String) onTextChanged;
-  const TextInputView(
+  const CustomTextInput(
       {super.key, required this.onTextChanged, required this.thought});
 
   @override
-  State<TextInputView> createState() => _TextInputViewState();
+  State<CustomTextInput> createState() => _CustomTextInputState();
 }
 
-class _TextInputViewState extends State<TextInputView> {
+class _CustomTextInputState extends State<CustomTextInput> {
   final controller = TextEditingController();
 
   @override
@@ -46,11 +49,13 @@ class _TextInputViewState extends State<TextInputView> {
           decoration: InputDecoration(
             hintText: '말씀을 묵상하고 느낀 점을 적어주세요.',
             hintStyle: TextStyle(
-                fontSize: AppStatics.body,
-                color: Theme.of(context).colorScheme.onSecondary),
+              fontSize: AppStatics.body,
+              color: Theme.of(context).colorScheme.onSecondary,
+            ),
             counterStyle: TextStyle(
-                fontSize: AppStatics.footnote,
-                color: Theme.of(context).colorScheme.onSecondary),
+              fontSize: AppStatics.footnote,
+              color: Theme.of(context).colorScheme.onSecondary,
+            ),
             filled: true,
             fillColor: Theme.of(context).colorScheme.secondary,
             contentPadding: const EdgeInsets.all(8),

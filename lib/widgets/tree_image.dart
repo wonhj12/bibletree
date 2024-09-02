@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// 나무 이미지 위젯
 class TreeImage extends StatelessWidget {
   const TreeImage({required this.treeName, super.key});
 

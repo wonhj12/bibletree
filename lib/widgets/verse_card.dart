@@ -2,6 +2,8 @@ import 'package:bibletree/models/verse.dart';
 import 'package:bibletree/statics/app_statics.dart';
 import 'package:flutter/material.dart';
 
+/// 말씀 카드 위젯
+/// * `Verse verse`
 class VerseCard extends StatelessWidget {
   final Verse verse;
 

@@ -1,6 +1,11 @@
 import 'package:bibletree/statics/app_statics.dart';
 import 'package:flutter/material.dart';
 
+/// `CustomModal`에서 버튼으로 사용되는 Inkwell 위젯
+/// * `String title`
+/// * `bool isTop` : 첫 버튼 여부. 상단 둥근 모서리 적용
+/// * `bool isBottom` : 마지막 버튼 여부. 하단 둥근 모서리 적용
+/// * `VoidCallback? onTap`
 class ModalInkwell extends StatelessWidget {
   final String title;
   final bool isTop;

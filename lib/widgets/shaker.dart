@@ -1,7 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 
+/// GrowthView에서 사용되는 화면 흔들림 위젯
+/// * `Widget child` : 흔들림을 적용할 위젯
+/// * `int duration` ; 흔들림 적용 시간
+/// * `double shakeWidth` : 흔들림 크기
 class Shaker extends StatefulWidget {
   final Widget child;
   final int duration;
@@ -20,7 +23,9 @@ class _ShakerState extends State<Shaker> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     controller = AnimationController(
-        duration: Duration(milliseconds: widget.duration * 2), vsync: this);
+      duration: Duration(milliseconds: widget.duration * 2),
+      vsync: this,
+    );
     animation = Tween(begin: 0.0, end: widget.shakeWidth).animate(controller);
   }
 

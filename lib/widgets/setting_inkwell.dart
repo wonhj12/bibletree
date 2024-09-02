@@ -1,6 +1,10 @@
 import 'package:bibletree/statics/app_statics.dart';
 import 'package:flutter/material.dart';
 
+/// SettingView에서 설정 메뉴로 사용되는 위젯
+/// * `String name` : 메뉴 명
+/// * `String value` : 메뉴 값
+/// * `Function()? onTap`
 class SettingInkwell extends StatelessWidget {
   final String name;
   final String value;

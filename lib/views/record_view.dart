@@ -4,7 +4,7 @@
 import 'package:bibletree/models/verse.dart';
 import 'package:bibletree/statics/app_statics.dart';
 import 'package:bibletree/viewModels/record_view_model.dart';
-import 'package:bibletree/widgets/text_input_view.dart';
+import 'package:bibletree/widgets/custom_text_input.dart';
 import 'package:bibletree/widgets/verse_card.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -108,7 +108,7 @@ class _RecordViewState extends State<RecordView> {
                 // Input view
                 Container(
                   margin: const EdgeInsets.all(24),
-                  child: TextInputView(
+                  child: CustomTextInput(
                     thought: recordViewModel.recordModel.thought,
                     onTextChanged: (text) =>
                         recordViewModel.onTextChanged(text),

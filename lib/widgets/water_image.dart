@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// 물주기 이미지 위젯
 class WaterImage extends StatelessWidget {
   const WaterImage({super.key});
 
