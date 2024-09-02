@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TreeView extends StatelessWidget {
-  const TreeView({required this.treeName, super.key});
+class TreeImage extends StatelessWidget {
+  const TreeImage({required this.treeName, super.key});
 
   final String treeName;
 

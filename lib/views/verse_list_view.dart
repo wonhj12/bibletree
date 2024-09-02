@@ -8,8 +8,8 @@
 // import 'package:bibletree/models/verse_singleton.dart';
 // import 'package:bibletree/models/record_item.dart';
 import 'package:bibletree/models/verse.dart';
+import 'package:bibletree/statics/app_statics.dart';
 import 'package:bibletree/viewModels/verse_list_view_model.dart';
-import 'package:bibletree/views/empty_view.dart';
 import 'package:bibletree/widgets/verse_list_card.dart';
 import 'package:flutter/material.dart';
 import 'package:implicitly_animated_list/implicitly_animated_list.dart';
@@ -50,7 +50,10 @@ class _VerseListViewState extends State<VerseListView> {
       ),
       body: SafeArea(
         child: verseListViewModel.records.isEmpty
-            ? const EmptyView()
+            ? const Text(
+                '묵상한 말씀이 없습니다',
+                style: TextStyle(fontSize: AppStatics.body),
+              )
             : ImplicitlyAnimatedList(
                 itemData: verseListViewModel.records,
                 itemBuilder: (_, record) => Container(

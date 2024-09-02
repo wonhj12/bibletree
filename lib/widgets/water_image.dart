@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class WaterView extends StatelessWidget {
-  const WaterView({super.key});
+class WaterImage extends StatelessWidget {
+  const WaterImage({super.key});
 
   @override
   Widget build(BuildContext context) {

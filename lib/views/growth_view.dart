@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:bibletree/statics/app_statics.dart';
 import 'package:bibletree/viewModels/growth_view_model.dart';
-import 'package:bibletree/views/tree/tree_view.dart';
+import 'package:bibletree/widgets/tree_image.dart';
 import 'package:bibletree/widgets/shaker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -62,7 +62,7 @@ class _GrowthViewState extends State<GrowthView> {
                         image: AssetImage('assets/images/base.png'),
                       ),
                     ),
-                    child: TreeView(
+                    child: TreeImage(
                       treeName: growthViewModel.userModel.getCurTree(),
                     ),
                   ),

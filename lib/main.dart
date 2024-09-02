@@ -58,9 +58,9 @@ Future<void> initializeData() async {
 /// 사용자 데이터 초기화
 Future<void> initUser() async {
   final lastLogin = DateTime.fromMillisecondsSinceEpoch(userModel.lastLogin!);
-  // if (!DateUtils.isSameDay(lastLogin, DateTime.now())) {
-  userModel.verseId += 1;
-  // }
+  if (!DateUtils.isSameDay(lastLogin, DateTime.now())) {
+    userModel.verseId += 1;
+  }
 }
 
 // Models

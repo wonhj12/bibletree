@@ -1,7 +1,7 @@
 import 'package:bibletree/models/verse.dart';
 import 'package:bibletree/viewModels/home_view_model.dart';
-import 'package:bibletree/views/tree/tree_view.dart';
-import 'package:bibletree/views/tree/water_view.dart';
+import 'package:bibletree/widgets/tree_image.dart';
+import 'package:bibletree/widgets/water_image.dart';
 import 'package:bibletree/widgets/verse_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -155,7 +155,7 @@ class _HomeViewState extends State<HomeView> {
                   Container(
                     alignment: Alignment.bottomCenter,
                     margin: const EdgeInsets.only(bottom: 100),
-                    child: TreeView(
+                    child: TreeImage(
                         treeName: homeViewModel.userModel.getCurTree()),
                   ),
 
@@ -199,7 +199,7 @@ class _HomeViewState extends State<HomeView> {
                       // },
                       child: Container(
                         margin: const EdgeInsets.only(right: 16, top: 16),
-                        child: const WaterView(),
+                        child: const WaterImage(),
                       ),
                     ),
                 ],
