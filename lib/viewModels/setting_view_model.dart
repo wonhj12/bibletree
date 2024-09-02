@@ -27,7 +27,6 @@ class SettingViewModel with ChangeNotifier {
 
   // 데이터 초기화
   void _initialize() {
-    print('a: ${settingModel}');
     theme = settingModel.theme;
     notification = settingModel.notification;
     haptic = settingModel.haptic;

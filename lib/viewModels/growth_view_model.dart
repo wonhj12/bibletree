@@ -25,7 +25,6 @@ class GrowthViewModel with ChangeNotifier {
 
   // 데이터 초기화
   void _initialize() {
-    print('1');
     treeName = userModel.treeName ?? '나무';
     growth = userModel.growth;
   }
