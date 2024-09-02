@@ -25,6 +25,7 @@ class GrowthViewModel with ChangeNotifier {
 
   // 데이터 초기화
   void _initialize() {
+    print('1');
     treeName = userModel.treeName ?? '나무';
     growth = userModel.growth;
   }
@@ -34,7 +35,6 @@ class GrowthViewModel with ChangeNotifier {
   /// 현재 `growth` 값과 `growthLevel`에 의해서 결정됨
   String treeDescription() {
     int level = growth % _growthLevel == 0 ? growth ~/ _growthLevel : -1;
-
     switch (level) {
       case 0:
         return '새로운 생명이네요! 어떤 나무로 자라게 될까요?';

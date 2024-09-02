@@ -77,12 +77,14 @@ class HomeViewModel with ChangeNotifier {
     // 나무 이름이 아직 정해지지 않았다면 dialog 호출 후 이름 지정
     if (userModel.treeName == null && needName is bool && needName) {
       if (context.mounted) {
+        // 이름 입력 팝업
         await showNameDialog(
           context,
           nameController,
         );
 
         treeName = nameController.text;
+        userModel.treeName = treeName;
         _saveUserModel();
       }
       // if (context.mounted) {
