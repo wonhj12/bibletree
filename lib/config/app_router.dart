@@ -83,20 +83,6 @@ class AppRouter {
                         child: const GrowthView(),
                       ),
                     ),
-
-                    // 설정
-                    GoRoute(
-                      path: 'setting',
-                      builder: (context, state) => ChangeNotifierProvider(
-                        create: (context) => SettingViewModel(
-                          userModel: userModel,
-                          settingModel: settingModel,
-                          recordModel: recordModel,
-                          context: context,
-                        ),
-                        child: const SettingView(),
-                      ),
-                    ),
                   ],
                 ),
               ],
@@ -129,9 +115,23 @@ class AppRouter {
                   ],
                 ),
               ],
-            )
+            ),
           ],
-        )
+        ),
+
+        // 설정
+        GoRoute(
+          path: '/setting',
+          builder: (context, state) => ChangeNotifierProvider(
+            create: (context) => SettingViewModel(
+              userModel: userModel,
+              settingModel: settingModel,
+              recordModel: recordModel,
+              context: context,
+            ),
+            child: const SettingView(),
+          ),
+        ),
       ],
     );
   }
