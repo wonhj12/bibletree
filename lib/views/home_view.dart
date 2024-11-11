@@ -98,6 +98,7 @@ class _HomeViewState extends State<HomeView> {
       // Home components
       child: Scaffold(
         appBar: AppBar(
+          title: const Text('성경나무'),
           leading: IconButton(
             onPressed: () => homeViewModel.onPressedSetting(),
             //  {
@@ -113,7 +114,7 @@ class _HomeViewState extends State<HomeView> {
             //     }
             //   });
             // },
-            icon: const Icon(Icons.format_list_bulleted),
+            icon: const Icon(Icons.tune_rounded),
           ),
         ),
         backgroundColor: Colors.transparent,
