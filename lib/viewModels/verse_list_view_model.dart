@@ -52,6 +52,6 @@ class VerseListViewModel with ChangeNotifier {
       debugPrint('Record 불러오기 실패: $e');
     }
 
-    if (context.mounted) GoRouter.of(context).push('/verse-list/record');
+    if (context.mounted) GoRouter.of(context).push('/home/verse-list/record');
   }
 }

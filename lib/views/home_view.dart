@@ -116,6 +116,12 @@ class _HomeViewState extends State<HomeView> {
             // },
             icon: const Icon(Icons.tune_rounded),
           ),
+          actions: [
+            IconButton(
+              onPressed: () => homeViewModel.onPressedList(),
+              icon: const Icon(Icons.list_rounded),
+            ),
+          ],
         ),
         backgroundColor: Colors.transparent,
         body: SafeArea(
