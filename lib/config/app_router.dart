@@ -11,6 +11,7 @@ import 'package:bibletree/views/home_view.dart';
 import 'package:bibletree/views/record_view.dart';
 import 'package:bibletree/views/setting_view.dart';
 import 'package:bibletree/views/verse_list_view.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -48,13 +49,29 @@ class AppRouter {
             // Record 등록/수정 페이지
             GoRoute(
               path: 'record',
-              builder: (context, state) => ChangeNotifierProvider(
-                create: (context) => RecordViewModel(
-                  userModel: userModel,
-                  recordModel: recordModel,
-                  context: context,
+              pageBuilder: (context, state) => CustomTransitionPage(
+                transitionsBuilder: (_, animation, __, child) {
+                  const begin = Offset(1, 0);
+                  const end = Offset.zero;
+                  const curve = Curves.easeInOut;
+
+                  var tween = Tween(begin: begin, end: end)
+                      .chain(CurveTween(curve: curve));
+                  var offsetAnimation = animation.drive(tween);
+
+                  return SlideTransition(
+                    position: offsetAnimation,
+                    child: child,
+                  );
+                },
+                child: ChangeNotifierProvider(
+                  create: (context) => RecordViewModel(
+                    userModel: userModel,
+                    recordModel: recordModel,
+                    context: context,
+                  ),
+                  child: const RecordView(),
                 ),
-                child: const RecordView(),
               ),
             ),
 
@@ -102,13 +119,29 @@ class AppRouter {
                 // Record 수정 페이지
                 GoRoute(
                   path: 'record',
-                  builder: (context, state) => ChangeNotifierProvider(
-                    create: (context) => RecordViewModel(
-                      userModel: userModel,
-                      recordModel: recordModel,
-                      context: context,
+                  pageBuilder: (context, state) => CustomTransitionPage(
+                    transitionsBuilder: (_, animation, __, child) {
+                      const begin = Offset(1, 0);
+                      const end = Offset.zero;
+                      const curve = Curves.easeInOut;
+
+                      var tween = Tween(begin: begin, end: end)
+                          .chain(CurveTween(curve: curve));
+                      var offsetAnimation = animation.drive(tween);
+
+                      return SlideTransition(
+                        position: offsetAnimation,
+                        child: child,
+                      );
+                    },
+                    child: ChangeNotifierProvider(
+                      create: (context) => RecordViewModel(
+                        userModel: userModel,
+                        recordModel: recordModel,
+                        context: context,
+                      ),
+                      child: const RecordView(),
                     ),
-                    child: const RecordView(),
                   ),
                 )
               ],
