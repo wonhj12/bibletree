@@ -61,12 +61,16 @@ class AppRouter {
             // 나무 물주기 페이지
             GoRoute(
               path: 'water',
-              builder: (context, state) => ChangeNotifierProvider(
-                create: (context) => GrowthViewModel(
-                  userModel: userModel,
-                  context: context,
+              pageBuilder: (context, state) => CustomTransitionPage(
+                opaque: false,
+                transitionsBuilder: (_, __, ___, child) => child,
+                child: ChangeNotifierProvider(
+                  create: (context) => GrowthViewModel(
+                    userModel: userModel,
+                    context: context,
+                  ),
+                  child: const GrowthView(),
                 ),
-                child: const GrowthView(),
               ),
             ),
 
