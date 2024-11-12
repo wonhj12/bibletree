@@ -1,28 +1,40 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+/* 권한 설정 */
+/// 사용자 권한 확인하는 함수
+void _permissionWithNotification() async {
+  if (await Permission.notification.isDenied &&
+      !await Permission.notification.isPermanentlyDenied) {
+    await [Permission.notification].request();
+  }
+}
+
+/* 알림 설정 */
 final notifications = FlutterLocalNotificationsPlugin();
 
+/// 알림 설정 초기화
 void initNotification() async {
+  // 알림 권한 확인
+  _permissionWithNotification();
+
+  // 안드로이드 설정
+  // 아이콘만 설정하면 됨
   AndroidInitializationSettings android =
       const AndroidInitializationSettings("@mipmap/ic_launcher");
 
   // ios 권한 요청
-  // TODO: permission handler 사용시 false로 설정
   var iosSetting = const DarwinInitializationSettings(
-    requestAlertPermission: true,
-    requestBadgePermission: true,
-    requestSoundPermission: true,
+    requestAlertPermission: false,
+    requestBadgePermission: false,
+    requestSoundPermission: false,
   );
 
-  var initializationSettings =
-      InitializationSettings(android: android, iOS: iosSetting);
-
-  await notifications.initialize(
-    initializationSettings,
-  );
+  var setting = InitializationSettings(android: android, iOS: iosSetting);
+  await notifications.initialize(setting);
 }
 
 void setNotification() async {
