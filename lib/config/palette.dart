@@ -30,6 +30,7 @@ class Palette {
   // Font sizes
   static const double largeTitle = 34;
   static const double title = 22;
+  static const double subtitle = 20;
   static const double body = 17;
   static const double subheadline = 15;
   static const double footnote = 13;

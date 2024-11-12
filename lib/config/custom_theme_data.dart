@@ -6,7 +6,7 @@ class CustomThemeData {
     fontFamily: 'Pretendard',
     appBarTheme: const AppBarTheme(
       titleTextStyle: TextStyle(
-        fontSize: Palette.body,
+        fontSize: Palette.subtitle,
         fontWeight: Palette.medium,
         color: Palette.primary,
       ),
@@ -32,7 +32,7 @@ class CustomThemeData {
     fontFamily: 'Pretendard',
     appBarTheme: const AppBarTheme(
       titleTextStyle: TextStyle(
-        fontSize: Palette.body,
+        fontSize: Palette.subtitle,
         fontWeight: Palette.medium,
         color: Colors.white,
       ),

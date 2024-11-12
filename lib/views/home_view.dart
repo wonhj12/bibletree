@@ -119,7 +119,7 @@ class _HomeViewState extends State<HomeView> {
           actions: [
             IconButton(
               onPressed: () => homeViewModel.onPressedList(),
-              icon: const Icon(Icons.list_rounded),
+              icon: const Icon(Icons.menu_rounded),
             ),
           ],
         ),
