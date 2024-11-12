@@ -24,12 +24,9 @@ class UserModel with ChangeNotifier {
   int verseId = 0; // 오늘의 말씀 id
 
   /* 기타 사용자 관련 변수 */
-  int? lastLogin; // 마지막 로그인 시점
+  int lastLogin = DateTime.now().millisecondsSinceEpoch; // 마지막 로그인 시점
 
-  UserModel({
-    this.treeName,
-    this.lastLogin,
-  });
+  UserModel({this.treeName});
 
   /// json 데이터를 모델에 저장
   void fromJson(Map<String, dynamic> jsonData) {
@@ -84,7 +81,7 @@ class UserModel with ChangeNotifier {
     growth = 0;
     canWater = false;
     verseId = 0;
-    lastLogin = null;
+    lastLogin = DateTime.now().millisecondsSinceEpoch;
   }
 
   @override

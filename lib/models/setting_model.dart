@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
 /// ### 앱 설정 데이터를 저장하고 관리하는 클래스
@@ -35,7 +34,7 @@ class SettingModel with ChangeNotifier {
         theme = ThemeMode.dark;
         break;
       default:
-        theme = ThemeMode.light;
+        theme = ThemeMode.system;
         break;
     }
     notification = jsonData['notification'];

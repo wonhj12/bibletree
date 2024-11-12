@@ -1,4 +1,4 @@
-package com.example.bibletree
+package com.hajinwon.bibletree
 
 import io.flutter.embedding.android.FlutterActivity
 

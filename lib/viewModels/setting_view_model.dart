@@ -1,9 +1,11 @@
 import 'package:bibletree/config/local_data_source.dart';
+import 'package:bibletree/config/notifications.dart';
 import 'package:bibletree/config/record_data_source.dart';
 import 'package:bibletree/models/record_model.dart';
 import 'package:bibletree/models/setting_model.dart';
 import 'package:bibletree/models/user_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:go_router/go_router.dart';
 
 class SettingViewModel with ChangeNotifier {
@@ -62,8 +64,17 @@ class SettingViewModel with ChangeNotifier {
 
   /// 앱 알림 설정을 변경하는 함수
   void changeNotification(bool value) async {
-    notification = value;
-    settingModel.notification = notification;
+    if (value) {
+      // 알림 활성화
+      setNotification();
+    } else {
+      // 알림 설정이 false로 바뀌면 설정된 알림 모두 취소
+      final FlutterLocalNotificationsPlugin notification =
+          FlutterLocalNotificationsPlugin();
+      notification.cancelAll();
+    }
+
+    settingModel.notification = value;
     await _saveSetting();
     notifyListeners();
   }
