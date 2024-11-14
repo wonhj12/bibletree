@@ -84,6 +84,7 @@ class AppRouter {
                 child: ChangeNotifierProvider(
                   create: (context) => GrowthViewModel(
                     userModel: userModel,
+                    settingModel: settingModel,
                     context: context,
                   ),
                   child: const GrowthView(),

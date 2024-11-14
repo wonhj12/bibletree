@@ -1,12 +1,19 @@
+import 'package:bibletree/models/setting_model.dart';
 import 'package:bibletree/models/user_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
 class GrowthViewModel with ChangeNotifier {
   UserModel userModel;
+  SettingModel settingModel;
   BuildContext context;
 
-  GrowthViewModel({required this.userModel, required this.context}) {
+  GrowthViewModel({
+    required this.userModel,
+    required this.settingModel,
+    required this.context,
+  }) {
     _initialize();
   }
 
@@ -67,6 +74,11 @@ class GrowthViewModel with ChangeNotifier {
   /// 흔들림 효과 실행
   void onTapTree() async {
     if (count > 0) {
+      // 햅틱 설정이 되어있다면 햅틱 주기
+      if (settingModel.haptic) {
+        HapticFeedback.vibrate();
+      }
+
       count -= 1;
       isShaking = true;
       notifyListeners();
