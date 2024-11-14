@@ -21,11 +21,21 @@ Future<void> main() async {
 /// 사용자, 설정, Record 데이터 불러오기 및 초기화
 Future<void> initializeData() async {
   try {
+    /* 데이터 불러오기 */
+    // Record 데이터 불러오기
+    dynamic recordResponse = await RecordDataSource().getRecordList();
+    if (recordResponse is List<Map<String, dynamic>>) {
+      recordModel.records = recordResponse;
+    }
+    debugPrint('Initialized records');
+
     // 저장된 유저 데이터 불러오기
     dynamic userResponse = await LocalDataSource.getLocalData('user');
     if (userResponse is Map<String, dynamic>) {
       // 유저 정보가 존재한다면 데이터 불러오기
       userModel.fromJson(userResponse);
+
+      // 사용자 초기화
       await initUser();
     }
     debugPrint('Initialized user');
@@ -41,13 +51,6 @@ Future<void> initializeData() async {
       setNotification();
     }
     debugPrint('Initialized setting');
-
-    // Record 데이터 불러오기
-    dynamic recordResponse = await RecordDataSource().getRecordList();
-    if (recordResponse is List<Map<String, dynamic>>) {
-      recordModel.records = recordResponse;
-    }
-    debugPrint('Initialized records');
 
     // 초기화 완료 후 로그인 시간 및 수정된 데이터 업데이트
     userModel.lastLogin = DateTime.now().millisecondsSinceEpoch;
