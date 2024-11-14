@@ -63,6 +63,8 @@ Future<void> initUser() async {
   if (!DateUtils.isSameDay(lastLogin, DateTime.now())) {
     userModel.verseId += 1;
   }
+
+  userModel.getTodayVerse();
 }
 
 // Models

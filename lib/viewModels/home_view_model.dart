@@ -2,7 +2,6 @@ import 'package:bibletree/config/local_data_source.dart';
 import 'package:bibletree/config/record_data_source.dart';
 import 'package:bibletree/models/record_model.dart';
 import 'package:bibletree/models/user_model.dart';
-import 'package:bibletree/models/verse_model.dart';
 import 'package:bibletree/widgets/name_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -20,7 +19,6 @@ class HomeViewModel with ChangeNotifier {
     _initialize();
   }
 
-  Verse? todayVerse;
   bool canWater = false;
   int growth = 0;
 
@@ -33,8 +31,6 @@ class HomeViewModel with ChangeNotifier {
     treeName = userModel.treeName;
     canWater = userModel.canWater;
     growth = userModel.growth;
-
-    todayVerse = VerseModel.instance.list[userModel.verseId];
   }
 
   /// 설정 버튼 클릭시 호출되는 함수

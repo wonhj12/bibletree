@@ -144,7 +144,7 @@ class _HomeViewState extends State<HomeView> {
                 // },
                 child: Container(
                   margin: const EdgeInsets.fromLTRB(16, 54, 16, 0),
-                  child: VerseCard(verse: homeViewModel.todayVerse!),
+                  child: VerseCard(verse: homeViewModel.userModel.todayVerse),
                 ),
               ),
 

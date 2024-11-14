@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bibletree/models/verse_model.dart';
 import 'package:flutter/material.dart';
 
 /// ### 사용자 데이터를 저장하고 관리하는 클래스
@@ -22,19 +23,20 @@ class UserModel with ChangeNotifier {
 
   /* 말씀 관련 변수 */
   int verseId = 0; // 오늘의 말씀 id
+  Verse? todayVerse; // 오늘의 말씀
 
   /* 기타 사용자 관련 변수 */
   int lastLogin = DateTime.now().millisecondsSinceEpoch; // 마지막 로그인 시점
 
-  UserModel({this.treeName});
+  UserModel({this.treeName, this.todayVerse});
 
   /// json 데이터를 모델에 저장
   void fromJson(Map<String, dynamic> jsonData) {
     treeName = jsonData['treeName'];
-    growth = jsonData['growth'];
-    canWater = jsonData['canWater'];
-    verseId = jsonData['verseId'];
-    lastLogin = jsonData['lastLogin'];
+    growth = jsonData['growth'] ?? 0;
+    canWater = jsonData['canWater'] ?? false;
+    verseId = jsonData['verseId'] ?? 0;
+    lastLogin = jsonData['lastLogin'] = DateTime.now().millisecondsSinceEpoch;
   }
 
   /// 사용자 정보 json 변환
@@ -75,12 +77,18 @@ class UserModel with ChangeNotifier {
     }
   }
 
+  void getTodayVerse() {
+    todayVerse = VerseModel.instance.list[verseId];
+  }
+
   /// 데이터 초기화
   void reset() {
     treeName = null;
     growth = 0;
     canWater = false;
     verseId = 0;
+    todayVerse = null;
+    getTodayVerse(); // 오늘 verse 불러오기
     lastLogin = DateTime.now().millisecondsSinceEpoch;
   }
 

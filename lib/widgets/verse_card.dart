@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 /// 말씀 카드 위젯
 /// * `Verse verse`
 class VerseCard extends StatelessWidget {
-  final Verse verse;
+  final Verse? verse;
 
   const VerseCard({
     super.key,
@@ -19,7 +19,7 @@ class VerseCard extends StatelessWidget {
       children: <Widget>[
         // 말씀
         Text(
-          verse.verse,
+          verse?.verse ?? '',
           style: const TextStyle(
             fontSize: Palette.title,
             fontWeight: Palette.medium,
@@ -30,7 +30,7 @@ class VerseCard extends StatelessWidget {
 
         // 장:절
         Text(
-          '${verse.book} ${verse.chapter}',
+          '${verse?.book} ${verse?.chapter}',
           style: TextStyle(
             fontSize: Palette.body,
             color: Theme.of(context).colorScheme.onSecondary,
