@@ -1,5 +1,6 @@
 import 'package:bibletree/config/palette.dart';
 import 'package:bibletree/viewModels/record_view_model.dart';
+import 'package:bibletree/widgets/custom_scaffold.dart';
 import 'package:bibletree/widgets/custom_text_input.dart';
 import 'package:bibletree/widgets/verse_card.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class _RecordViewState extends State<RecordView> {
   Widget build(BuildContext context) {
     RecordViewModel recordViewModel = context.watch<RecordViewModel>();
 
-    return Scaffold(
+    return CustomScaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
       appBar: AppBar(
         title: const Text('오늘의 말씀'),
