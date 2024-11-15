@@ -65,6 +65,7 @@ class RecordViewModel with ChangeNotifier {
         final id =
             await RecordDataSource().createRecord(recordModel.toJsonDatabase());
         recordModel.addRecord(id);
+        userModel.recorded = true; // 신규 묵상 저장시 기록 여부 true 설정
       } else {
         // Record 수정
         if (thought != _initThought) {

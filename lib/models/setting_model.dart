@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bibletree/config/local_data_source.dart';
 import 'package:flutter/material.dart';
 
 /// ### 앱 설정 데이터를 저장하고 관리하는 클래스
@@ -55,6 +56,16 @@ class SettingModel with ChangeNotifier {
     theme = ThemeMode.system;
     notification = true;
     haptic = true;
+  }
+
+  /* 기타 함수 */
+  /// 설정을 로컬 저장소에 저장하는 함수
+  Future<void> saveSettingModel() async {
+    try {
+      await LocalDataSource.saveDataToLocal(toJson(), 'setting');
+    } catch (e) {
+      debugPrint('설정 저장 실패: $e');
+    }
   }
 
   @override

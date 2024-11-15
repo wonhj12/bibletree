@@ -58,7 +58,7 @@ class SettingViewModel with ChangeNotifier {
   void changeTheme(ThemeMode themeMode) async {
     theme = themeMode;
     settingModel.theme = theme;
-    await _saveSetting();
+    await settingModel.saveSettingModel();
     notifyListeners();
   }
 
@@ -75,7 +75,7 @@ class SettingViewModel with ChangeNotifier {
     }
 
     settingModel.notification = value;
-    await _saveSetting();
+    await settingModel.saveSettingModel();
     notifyListeners();
   }
 
@@ -83,7 +83,7 @@ class SettingViewModel with ChangeNotifier {
   void changeHaptic(bool value) async {
     haptic = value;
     settingModel.haptic = haptic;
-    await _saveSetting();
+    await settingModel.saveSettingModel();
     notifyListeners();
   }
 
@@ -108,12 +108,14 @@ class SettingViewModel with ChangeNotifier {
     }
   }
 
-  // 설정을 로컬 저장소에 저장하는 함수
-  Future<void> _saveSetting() async {
-    try {
-      await LocalDataSource.saveDataToLocal(settingModel.toJson(), 'setting');
-    } catch (e) {
-      debugPrint('설정 저장 실패: $e');
-    }
+  /// 물씀 묵상 시간을 String 형식으로 반환하는 함수
+  String updateTimeString() {
+    return userModel.updateTime.format(context);
+  }
+
+  void onTapSaveTime(TimeOfDay time) async {
+    userModel.updateTime = time;
+    await userModel.saveUserModel();
+    notifyListeners();
   }
 }

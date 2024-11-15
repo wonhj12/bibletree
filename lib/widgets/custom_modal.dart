@@ -39,11 +39,10 @@ class CustomModal extends StatelessWidget {
                 color: Theme.of(context).colorScheme.secondary,
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
               ),
-              child: ModalInkwell(
+              child: const ModalInkwell(
                 title: '취소',
                 isTop: true,
                 isBottom: true,
-                onTap: () {},
               ),
             ),
           ),

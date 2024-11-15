@@ -13,6 +13,16 @@ class CustomThemeData {
       centerTitle: true,
       backgroundColor: Palette.green, // Appbar BG
     ),
+    timePickerTheme: const TimePickerThemeData(
+      backgroundColor: Palette.green200,
+      dialTextColor: Palette.primary,
+      hourMinuteTextColor: Palette.primary,
+      dayPeriodColor: Palette.green,
+      dayPeriodTextColor: Palette.primary,
+      dayPeriodBorderSide: BorderSide(color: Palette.green),
+      dialBackgroundColor: Palette.green100,
+      hourMinuteColor: Palette.green100,
+    ),
     scaffoldBackgroundColor: Palette.green, // Scaffold BG
     colorScheme: const ColorScheme.light(
       primary: Palette.green,

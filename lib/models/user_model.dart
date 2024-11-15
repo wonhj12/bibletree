@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bibletree/config/local_data_source.dart';
 import 'package:bibletree/models/verse_model.dart';
 import 'package:flutter/material.dart';
 
@@ -12,8 +13,10 @@ import 'package:flutter/material.dart';
 ///
 /// **말씀 관련 변수**
 /// * `int verseId`
+/// * `Verse? todayVerse`
 ///
 /// **기타 사용자 관련 변수**
+/// * `TimeOfDay updateTime`
 /// * `int? lastLogin`
 class UserModel with ChangeNotifier {
   /* 나무 관련 변수 */
@@ -26,7 +29,9 @@ class UserModel with ChangeNotifier {
   Verse? todayVerse; // 오늘의 말씀
 
   /* 기타 사용자 관련 변수 */
+  TimeOfDay updateTime = const TimeOfDay(hour: 9, minute: 0); // 말씀 업데이트 시간
   int lastLogin = DateTime.now().millisecondsSinceEpoch; // 마지막 로그인 시점
+  bool recorded = false; // 전날 묵상 기록 여부
 
   UserModel({this.treeName, this.todayVerse});
 
@@ -36,7 +41,9 @@ class UserModel with ChangeNotifier {
     growth = jsonData['growth'] ?? 0;
     canWater = jsonData['canWater'] ?? false;
     verseId = jsonData['verseId'] ?? 0;
-    lastLogin = jsonData['lastLogin'] = DateTime.now().millisecondsSinceEpoch;
+    updateTime = _stringToTimeOfDay(jsonData['updateTime'] ?? '');
+    lastLogin = jsonData['lastLogin'] ?? DateTime.now().millisecondsSinceEpoch;
+    recorded = jsonData['recorded'] ?? false;
   }
 
   /// 사용자 정보 json 변환
@@ -46,8 +53,22 @@ class UserModel with ChangeNotifier {
       'growth': growth,
       'canWater': canWater,
       'verseId': verseId,
+      'updateTime': _timeOfDayToString(updateTime),
       'lastLogin': lastLogin,
+      'recorded': recorded,
     });
+  }
+
+  /// 데이터 초기화
+  void reset() {
+    treeName = null;
+    growth = 0;
+    canWater = false;
+    verseId = 0;
+    todayVerse = null;
+    getTodayVerse(); // 오늘 verse 불러오기
+    lastLogin = DateTime.now().millisecondsSinceEpoch;
+    recorded = false;
   }
 
   /* 나무 관련 함수 */
@@ -77,19 +98,39 @@ class UserModel with ChangeNotifier {
     }
   }
 
+  /* 말씀 관련 함수 */
+  /// VerseModel에서 오늘의 Verse를 가져오는 함수
   void getTodayVerse() {
     todayVerse = VerseModel.instance.list[verseId];
   }
 
-  /// 데이터 초기화
-  void reset() {
-    treeName = null;
-    growth = 0;
-    canWater = false;
-    verseId = 0;
-    todayVerse = null;
-    getTodayVerse(); // 오늘 verse 불러오기
-    lastLogin = DateTime.now().millisecondsSinceEpoch;
+  /* 기타 함수 */
+  /// `String` 형태의 시간 정보를 `TimeOfDay`로 반환하는 함수
+  /// <br /> Default: 09:00
+  TimeOfDay _stringToTimeOfDay(String time) {
+    if (time.isNotEmpty && time.contains(':')) {
+      List<String> parts = time.split(':');
+      int hour = int.parse(parts[0]);
+      int minute = int.parse(parts[1]);
+      return TimeOfDay(hour: hour, minute: minute);
+    }
+
+    // 기본값 9:00 AM
+    return const TimeOfDay(hour: 9, minute: 0);
+  }
+
+  /// `TimeOfDay` 형태의 시간 정보를 `String`으로 변환하는 함수
+  String _timeOfDayToString(TimeOfDay time) {
+    return '${time.hour}:${time.minute}';
+  }
+
+  /// 사용자 데이터를 로컬 저장소에 저장하는 함수
+  Future<void> saveUserModel() async {
+    try {
+      LocalDataSource.saveDataToLocal(toJson(), 'user');
+    } catch (e) {
+      debugPrint('사용자 데이터 저장 실패: $e');
+    }
   }
 
   @override
@@ -98,6 +139,8 @@ class UserModel with ChangeNotifier {
         'growth: $growth, '
         'canWater: $canWater, '
         'verseId: $verseId, '
-        'lastLogin: $lastLogin';
+        'updateTime: ${_timeOfDayToString(updateTime)}, '
+        'lastLogin: $lastLogin, '
+        'recorded: $recorded';
   }
 }

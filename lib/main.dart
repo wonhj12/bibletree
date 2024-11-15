@@ -54,7 +54,7 @@ Future<void> initializeData() async {
 
     // 초기화 완료 후 로그인 시간 및 수정된 데이터 업데이트
     userModel.lastLogin = DateTime.now().millisecondsSinceEpoch;
-    await LocalDataSource.saveDataToLocal(userModel.toJson(), 'user');
+    await userModel.saveUserModel();
   } catch (e) {
     debugPrint('Failed to initialize data: $e');
   }
@@ -62,11 +62,23 @@ Future<void> initializeData() async {
 
 /// 사용자 데이터 초기화
 Future<void> initUser() async {
+  final now = DateTime.now();
+  final updateTime = DateTime(now.year, now.month, now.day,
+      userModel.updateTime.hour, userModel.updateTime.minute);
   final lastLogin = DateTime.fromMillisecondsSinceEpoch(userModel.lastLogin);
-  if (!DateUtils.isSameDay(lastLogin, DateTime.now())) {
-    userModel.verseId += 1;
+  // if (!DateUtils.isSameDay(lastLogin, DateTime.now())) {
+  //   userModel.verseId += 1;
+  // }
+  // 마지막 로그인 시점이 오늘 updateTime 이전일 경우에만 진행
+  if (lastLogin.isBefore(updateTime)) {
+    // updateTime이 지났고 기록이 있으면 verseId 업데이트
+    if (now.isAfter(updateTime) && userModel.recorded) {
+      userModel.verseId += 1;
+      userModel.recorded = false;
+    }
   }
 
+  // 오늘 말씀 설정
   userModel.getTodayVerse();
 }
 
