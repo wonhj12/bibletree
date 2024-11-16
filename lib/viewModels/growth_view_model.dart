@@ -76,7 +76,7 @@ class GrowthViewModel with ChangeNotifier {
     if (count > 0) {
       // 햅틱 설정이 되어있다면 햅틱 주기
       if (settingModel.haptic) {
-        HapticFeedback.vibrate();
+        HapticFeedback.lightImpact();
       }
 
       count -= 1;
