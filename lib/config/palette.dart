@@ -2,9 +2,10 @@ import "package:flutter/widgets.dart";
 
 class Palette {
   // Basic colors
-  static const Color primary = Color(0xFF000000);
+  static const Color primary = Color(0xFF252525);
   static const Color secondary = Color.fromARGB(255, 100, 100, 100);
   static const Color tertiary = Color.fromARGB(255, 210, 210, 210);
+  static const Color alert = Color.fromARGB(255, 255, 0, 0);
   static const Color white = Color(0xFFFFFFFF);
 
   // App colors

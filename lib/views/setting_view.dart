@@ -185,11 +185,26 @@ class _SettingViewState extends State<SettingView> {
             const SettingHeader(title: '기타'),
 
             // 데이터 재설정
-            // TODO : popup
             SettingInkwell(
               name: '데이터 재설정',
               value: '',
-              onTap: () async => settingViewModel.resetData(),
+              onTap: () => showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return CustomModal(
+                    buttons: [
+                      ModalInkwell(
+                        title: '데이터 재설정',
+                        isTop: true,
+                        isBottom: true,
+                        isAlert: true,
+                        onTap: settingViewModel.resetData,
+                      )
+                    ],
+                  );
+                },
+                backgroundColor: Colors.transparent,
+              ),
             ),
           ],
         ),

@@ -10,6 +10,7 @@ class ModalInkwell extends StatelessWidget {
   final String title;
   final bool isTop;
   final bool isBottom;
+  final bool isAlert;
   final VoidCallback? onTap;
 
   const ModalInkwell({
@@ -17,6 +18,7 @@ class ModalInkwell extends StatelessWidget {
     required this.title,
     this.isTop = false,
     this.isBottom = false,
+    this.isAlert = false,
     this.onTap,
   });
 
@@ -40,9 +42,10 @@ class ModalInkwell extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: Palette.body,
-                fontWeight: Palette.regular,
+                fontWeight: isAlert ? Palette.medium : Palette.regular,
+                color: isAlert ? Palette.alert : Palette.primary,
               ),
             ),
           ),
