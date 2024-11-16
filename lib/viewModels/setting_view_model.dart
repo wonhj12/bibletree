@@ -5,7 +5,6 @@ import 'package:bibletree/models/record_model.dart';
 import 'package:bibletree/models/setting_model.dart';
 import 'package:bibletree/models/user_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:go_router/go_router.dart';
 
 class SettingViewModel with ChangeNotifier {
@@ -64,18 +63,13 @@ class SettingViewModel with ChangeNotifier {
 
   /// 앱 알림 설정을 변경하는 함수
   void changeNotification(bool value) async {
-    if (value) {
-      // 알림 활성화
-      setNotification();
-    } else {
-      // 알림 설정이 false로 바뀌면 설정된 알림 모두 취소
-      final FlutterLocalNotificationsPlugin notification =
-          FlutterLocalNotificationsPlugin();
-      notification.cancelAll();
-    }
-
+    // 설정 업데이트
     settingModel.notification = value;
     await settingModel.saveSettingModel();
+
+    // 알림 적용
+    setNotification(userModel, settingModel);
+
     notifyListeners();
   }
 
@@ -116,6 +110,8 @@ class SettingViewModel with ChangeNotifier {
   void onTapSaveTime(TimeOfDay time) async {
     userModel.updateTime = time;
     await userModel.saveUserModel();
+
+    setNotification(userModel, settingModel);
     notifyListeners();
   }
 }

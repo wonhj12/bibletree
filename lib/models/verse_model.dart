@@ -60,9 +60,6 @@ class Verse {
 
   @override
   String toString() {
-    return 'id: $id, '
-        'verse: $verse, '
-        'book: $book, '
-        'chapter: $chapter';
+    return '$verse ($book $chapter)';
   }
 }

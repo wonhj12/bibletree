@@ -68,6 +68,7 @@ class AppRouter {
                   create: (context) => RecordViewModel(
                     userModel: userModel,
                     recordModel: recordModel,
+                    settingModel: settingModel,
                     context: context,
                   ),
                   child: const RecordView(),
@@ -139,6 +140,7 @@ class AppRouter {
                       create: (context) => RecordViewModel(
                         userModel: userModel,
                         recordModel: recordModel,
+                        settingModel: settingModel,
                         context: context,
                       ),
                       child: const RecordView(),

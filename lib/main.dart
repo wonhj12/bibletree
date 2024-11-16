@@ -45,12 +45,11 @@ Future<void> initializeData() async {
     if (settingResponse is Map<String, dynamic>) {
       // 설정 정보가 존재한다면 데이터 불러오기
       settingModel.fromJson(settingResponse);
-    } else {
-      // 아직 설정이 없는 상태라면 알림 끄기 설정을 하지 않은 상태이기 때문에 자동으로 알람 켬
-      // 설정을 저장한 상태라면 거기서 알아서 진행하게 됨
-      setNotification();
     }
     debugPrint('Initialized setting');
+
+    // 알림 설정
+    setNotification(userModel, settingModel);
 
     // 초기화 완료 후 로그인 시간 및 수정된 데이터 업데이트
     userModel.lastLogin = DateTime.now().millisecondsSinceEpoch;

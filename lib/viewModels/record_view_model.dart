@@ -1,5 +1,7 @@
+import 'package:bibletree/config/notifications.dart';
 import 'package:bibletree/config/record_data_source.dart';
 import 'package:bibletree/models/record_model.dart';
+import 'package:bibletree/models/setting_model.dart';
 import 'package:bibletree/models/user_model.dart';
 import 'package:bibletree/models/verse_model.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +10,13 @@ import 'package:go_router/go_router.dart';
 class RecordViewModel with ChangeNotifier {
   UserModel userModel;
   RecordModel recordModel;
+  SettingModel settingModel;
   BuildContext context;
 
   RecordViewModel({
     required this.userModel,
     required this.recordModel,
+    required this.settingModel,
     required this.context,
   }) {
     _initialize();
@@ -66,6 +70,7 @@ class RecordViewModel with ChangeNotifier {
             await RecordDataSource().createRecord(recordModel.toJsonDatabase());
         recordModel.addRecord(id);
         userModel.recorded = true; // 신규 묵상 저장시 기록 여부 true 설정
+        setNotification(userModel, settingModel); // 다음 말씀으로 알람 새로 설정
       } else {
         // Record 수정
         if (thought != _initThought) {
