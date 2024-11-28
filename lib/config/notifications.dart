@@ -1,6 +1,5 @@
 import 'package:bibletree/models/setting_model.dart';
 import 'package:bibletree/models/user_model.dart';
-import 'package:bibletree/models/verse_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -57,31 +56,24 @@ void setNotification(UserModel userModel, SettingModel settingModel) async {
     presentSound: true,
   );
 
-  // 알림 시간 설정 (아침 9시)
+  // 알림 시간 설정
   tz.TZDateTime now = tz.TZDateTime.now(tz.local);
   final schedule = tz.TZDateTime(
     tz.local,
     now.year,
     now.month,
-    now.day,
+    now.day + 1,
     userModel.updateTime.hour,
     userModel.updateTime.minute,
   );
 
   if (settingModel.notification) {
-    // 알림 활성화
-
+    // 알림 활성화시 알림 설정
     // 알림 메시지 설정
-    // 묵상을 했으면 다음 말씀 표시, 묵상을 아직 안했으면 묵상할 시간이라고 표시
-    final String verse = userModel.recorded
-        ? VerseModel.instance.list[userModel.verseId + 1].toString()
-        : '돌아와서 오늘의 말씀을 묵상해 보세요.';
-
-    // 알림 id, 제목, 내용 맘대로 채우기
     await notifications.zonedSchedule(
       1,
       '말씀을 묵상할 시간이예요!',
-      verse,
+      '돌아와서 오늘의 말씀을 묵상해 보세요.',
       schedule,
       const NotificationDetails(android: androidDetails, iOS: iosDetails),
       uiLocalNotificationDateInterpretation:
